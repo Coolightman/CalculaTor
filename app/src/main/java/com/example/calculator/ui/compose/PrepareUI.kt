@@ -16,6 +16,7 @@ fun PrepareUI(content: @Composable () -> Unit) {
         color = MaterialTheme.colors.background
     ) {
         DefineStatusBarColor()
+        content()
     }
 }
 
