@@ -1,9 +1,7 @@
 package com.example.calculator.ui.compose
 
 import androidx.compose.animation.animateColor
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -26,10 +24,13 @@ fun BlinkingCaret(
         initialValue = color,
         targetValue = Color.Transparent,
         animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = 300,
-                delayMillis = 800
-            )
+            animation = keyframes {
+                durationMillis = 1000
+                color at 0
+                color at 500
+                Color.Transparent at 501
+                Color.Transparent at 1000
+            }
         )
     )
     Spacer(
