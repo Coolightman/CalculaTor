@@ -24,7 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.calculator.ui.theme.GrayBorder
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomButton(
@@ -33,7 +33,7 @@ fun CustomButton(
     iconSize: Dp = 34.dp,
     symbolColor: Color = MaterialTheme.colors.onBackground,
     background: Color = MaterialTheme.colors.secondary,
-    borderColor: Color = GrayBorder,
+    borderColor: Color = MaterialTheme.colors.secondaryVariant,
     width: Dp = 65.dp,
     height: Dp = 65.dp,
     textStyle: TextStyle = MaterialTheme.typography.h4,
@@ -70,6 +70,40 @@ fun CustomButton(
                 colorFilter = ColorFilter.tint(symbolColor)
             )
         }
+    }
+    Spacer(modifier = Modifier.height(12.dp))
+}
+
+@Composable
+fun DivideButton(
+    symbolColor: Color = MaterialTheme.colors.primaryVariant,
+    background: Color = MaterialTheme.colors.secondary,
+    borderColor: Color = MaterialTheme.colors.secondaryVariant,
+    width: Dp = 65.dp,
+    height: Dp = 65.dp,
+    onClick: () -> Unit
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(width = width, height = height)
+            .shadow(6.dp, CircleShape)
+            .background(background)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(color = Color.Black)
+            ) { onClick() }
+            .border(
+                width = 1.dp,
+                color = borderColor,
+                shape = CircleShape
+            )
+    ) {
+        Text(
+            text = "\u00F7",
+            color = symbolColor,
+            fontSize = 42.sp
+        )
     }
     Spacer(modifier = Modifier.height(12.dp))
 }
