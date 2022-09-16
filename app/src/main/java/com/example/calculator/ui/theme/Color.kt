@@ -14,4 +14,4 @@ val GrayBorder = Color(0xFF2E2E2E)
 
 val AppLightGray = Color(0xFFDADADA)
 val LightSurface = Color(0xFFECECEC)
-val LightGrayBorder = Color(0xFFDFDDDD)
+val LightGrayBorder = Color(0xFFE2E2E2)

@@ -11,11 +11,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calculator.ui.compose.*
-import com.example.calculator.ui.theme.Blue700Border
 import com.example.calculator.ui.theme.CalculaTorTheme
 
 class MainActivity : ComponentActivity() {
@@ -104,7 +102,7 @@ private fun AppScreen() {
 @Preview(name = "Night")
 @Composable
 fun AppPreviewNight() {
-    CalculaTorTheme() {
+    CalculaTorTheme {
         PrepareUI {
             AppScreen()
         }
