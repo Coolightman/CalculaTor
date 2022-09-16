@@ -22,12 +22,15 @@ fun MainScreen(
     var mainText by remember {
         mutableStateOf("")
     }
+    val secondText by remember {
+        mutableStateOf("")
+    }
     mainText = state.number1 + (state.operation?.symbol ?: "") + state.number2
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         MainRow(mainText)
-        SecondRaw("+100500")
+        SecondRaw(secondText)
         Spacer(modifier = Modifier.height(24.dp))
 
         Row(
