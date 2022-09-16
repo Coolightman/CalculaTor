@@ -68,13 +68,22 @@ private fun AppScreen() {
                 ) {
                     mainText = "C"
                 }
-                CustomButton(symbol = "7") {
+                CustomButton(
+                    symbol = "7",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "7"
                 }
-                CustomButton(symbol = "4") {
+                CustomButton(
+                    symbol = "4",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "4"
                 }
-                CustomButton(symbol = "1") {
+                CustomButton(
+                    symbol = "1",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "1"
                 }
                 CustomButton(symbol = "%") {
@@ -90,16 +99,28 @@ private fun AppScreen() {
                 DivideButton {
                     mainText = "\u00F7"
                 }
-                CustomButton(symbol = "8") {
+                CustomButton(
+                    symbol = "8",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "8"
                 }
-                CustomButton(symbol = "5") {
+                CustomButton(
+                    symbol = "5",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "5"
                 }
-                CustomButton(symbol = "2") {
+                CustomButton(
+                    symbol = "2",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "2"
                 }
-                CustomButton(symbol = "0") {
+                CustomButton(
+                    symbol = "0",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "0"
                 }
             }
@@ -114,13 +135,22 @@ private fun AppScreen() {
                 ) {
                     mainText = "\u00D7"
                 }
-                CustomButton(symbol = "9") {
+                CustomButton(
+                    symbol = "9",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "9"
                 }
-                CustomButton(symbol = "6") {
+                CustomButton(
+                    symbol = "6",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "6"
                 }
-                CustomButton(symbol = "3") {
+                CustomButton(
+                    symbol = "3",
+                    offsetY = (-2).dp
+                ) {
                     mainText = "3"
                 }
                 CustomButton(symbol = ".") {
@@ -142,8 +172,7 @@ private fun AppScreen() {
                 }
                 CustomButton(
                     icon = R.drawable.ic_minus,
-                    symbolColor = MaterialTheme.colors.primaryVariant,
-                    offsetY = 2.dp
+                    symbolColor = MaterialTheme.colors.primaryVariant
                 ) {
                     mainText = "-"
                 }
@@ -171,7 +200,7 @@ private fun AppScreen() {
 @Preview(name = "Night")
 @Composable
 fun AppPreviewNight() {
-    CalculaTorTheme(darkTheme = true){
+    CalculaTorTheme(darkTheme = true) {
         PrepareUI {
             AppScreen()
         }
@@ -181,7 +210,7 @@ fun AppPreviewNight() {
 @Preview(name = "Day")
 @Composable
 fun AppPreview() {
-    CalculaTorTheme(){
+    CalculaTorTheme {
         PrepareUI {
             AppScreen()
         }
