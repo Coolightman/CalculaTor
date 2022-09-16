@@ -24,7 +24,7 @@ fun MainRow(text: String) {
         Text(
             text = text,
             maxLines = 1,
-            style = MaterialTheme.typography.h3,
+            style = MaterialTheme.typography.h4,
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.End
         )
