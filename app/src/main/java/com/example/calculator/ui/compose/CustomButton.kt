@@ -5,10 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -37,6 +34,8 @@ fun CustomButton(
     width: Dp = 65.dp,
     height: Dp = 65.dp,
     textStyle: TextStyle = MaterialTheme.typography.h4,
+    offsetX: Dp = 0.dp,
+    offsetY: Dp = 0.dp,
     onClick: () -> Unit
 ) {
     Box(
@@ -59,19 +58,22 @@ fun CustomButton(
             Text(
                 text = it,
                 style = textStyle,
-                color = symbolColor
+                color = symbolColor,
+                modifier = Modifier.offset(x = offsetX, y = offsetY)
             )
         }
         icon?.let {
             Image(
                 painter = painterResource(id = it),
                 contentDescription = null,
-                modifier = Modifier.size(iconSize),
-                colorFilter = ColorFilter.tint(symbolColor)
+                modifier = Modifier
+                    .size(iconSize)
+                    .offset(x = offsetX, y = offsetY),
+                colorFilter = ColorFilter.tint(symbolColor),
             )
         }
     }
-    Spacer(modifier = Modifier.height(12.dp))
+    Spacer(modifier = Modifier.height(18.dp))
 }
 
 @Composable
@@ -102,8 +104,9 @@ fun DivideButton(
         Text(
             text = "\u00F7",
             color = symbolColor,
-            fontSize = 42.sp
+            fontSize = 42.sp,
+            modifier = Modifier.offset(y = (-2).dp)
         )
     }
-    Spacer(modifier = Modifier.height(12.dp))
+    Spacer(modifier = Modifier.height(18.dp))
 }

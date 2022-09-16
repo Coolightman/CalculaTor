@@ -62,7 +62,9 @@ private fun AppScreen() {
             ) {
                 CustomButton(
                     symbol = "C",
-                    symbolColor = MaterialTheme.colors.primaryVariant
+                    symbolColor = MaterialTheme.colors.primaryVariant,
+                    offsetX = (-1).dp,
+                    offsetY = (-2).dp
                 ) {
                     mainText = "C"
                 }
@@ -80,6 +82,7 @@ private fun AppScreen() {
                 }
 
             }
+
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -99,8 +102,8 @@ private fun AppScreen() {
                 CustomButton(symbol = "0") {
                     mainText = "0"
                 }
-
             }
+
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -123,8 +126,8 @@ private fun AppScreen() {
                 CustomButton(symbol = ".") {
                     mainText = "."
                 }
-
             }
+
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -132,13 +135,15 @@ private fun AppScreen() {
                 CustomButton(
                     icon = R.drawable.ic_backspace,
                     iconSize = 28.dp,
-                    symbolColor = MaterialTheme.colors.primaryVariant
+                    symbolColor = MaterialTheme.colors.primaryVariant,
+                    offsetX = (-2).dp
                 ) {
                     mainText = "<-"
                 }
                 CustomButton(
                     icon = R.drawable.ic_minus,
-                    symbolColor = MaterialTheme.colors.primaryVariant
+                    symbolColor = MaterialTheme.colors.primaryVariant,
+                    offsetY = 2.dp
                 ) {
                     mainText = "-"
                 }
@@ -153,11 +158,10 @@ private fun AppScreen() {
                     background = MaterialTheme.colors.primaryVariant,
                     symbolColor = Color.White,
                     borderColor = Blue700Border,
-                    height = 142.dp
+                    height = 148.dp
                 ) {
                     mainText = "="
                 }
-
             }
         }
     }
