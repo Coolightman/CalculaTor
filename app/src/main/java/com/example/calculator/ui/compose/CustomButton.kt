@@ -22,6 +22,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.calculator.R
+import com.example.calculator.ui.theme.Blue700Border
 
 @Composable
 fun CustomButton(
@@ -109,4 +111,82 @@ fun DivideButton(
         )
     }
     Spacer(modifier = Modifier.height(18.dp))
+}
+
+
+@Composable
+fun ButtonClear(onClick: () -> Unit) {
+    CustomButton(
+        symbol = "C",
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetX = (-1).dp,
+        offsetY = (-2).dp
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonMultiply(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.ic_multiply,
+        symbolColor = MaterialTheme.colors.primaryVariant,
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonMinus(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.ic_minus,
+        symbolColor = MaterialTheme.colors.primaryVariant
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonPlus(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.ic_plus,
+        symbolColor = MaterialTheme.colors.primaryVariant
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonEqual(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.ic_equal,
+        background = MaterialTheme.colors.primaryVariant,
+        symbolColor = Color.White,
+        borderColor = Blue700Border,
+        height = 148.dp
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonBackspace(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.ic_backspace,
+        iconSize = 28.dp,
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetX = (-2).dp
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonNumber(number: String, onClick: () -> Unit) {
+    CustomButton(
+        symbol = number,
+        offsetY = (-2).dp
+    ) {
+        onClick()
+    }
 }

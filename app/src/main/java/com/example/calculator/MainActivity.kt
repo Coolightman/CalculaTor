@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
     }
 }
 
@@ -60,157 +59,52 @@ private fun AppScreen() {
                 modifier = Modifier
                     .fillMaxHeight()
             ) {
-                CustomButton(
-                    symbol = "C",
-                    symbolColor = MaterialTheme.colors.primaryVariant,
-                    offsetX = (-1).dp,
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "C"
-                }
-                CustomButton(
-                    symbol = "7",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "7"
-                }
-                CustomButton(
-                    symbol = "4",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "4"
-                }
-                CustomButton(
-                    symbol = "1",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "1"
-                }
-                CustomButton(symbol = "%") {
-                    mainText = "%"
-                }
-
+                ButtonClear { mainText = "C" }
+                ButtonNumber(number = "7") { mainText = "7" }
+                ButtonNumber(number = "4") { mainText = "4" }
+                ButtonNumber(number = "1") { mainText = "1" }
+                CustomButton(symbol = "%") { mainText = "%" }
             }
 
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
             ) {
-                DivideButton {
-                    mainText = "\u00F7"
-                }
-                CustomButton(
-                    symbol = "8",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "8"
-                }
-                CustomButton(
-                    symbol = "5",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "5"
-                }
-                CustomButton(
-                    symbol = "2",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "2"
-                }
-                CustomButton(
-                    symbol = "0",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "0"
-                }
+                DivideButton { mainText = "\u00F7" }
+                ButtonNumber(number = "8") { mainText = "8" }
+                ButtonNumber(number = "5") { mainText = "5" }
+                ButtonNumber(number = "2") { mainText = "2" }
+                ButtonNumber(number = "0") { mainText = "0" }
             }
 
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
             ) {
-                CustomButton(
-                    icon = R.drawable.ic_multiply,
-                    symbolColor = MaterialTheme.colors.primaryVariant
-                ) {
-                    mainText = "\u00D7"
-                }
-                CustomButton(
-                    symbol = "9",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "9"
-                }
-                CustomButton(
-                    symbol = "6",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "6"
-                }
-                CustomButton(
-                    symbol = "3",
-                    offsetY = (-2).dp
-                ) {
-                    mainText = "3"
-                }
-                CustomButton(symbol = ".") {
-                    mainText = "."
-                }
+                ButtonMultiply { mainText = "\u00D7" }
+                ButtonNumber(number = "9") { mainText = "9" }
+                ButtonNumber(number = "6") { mainText = "6" }
+                ButtonNumber(number = "3") { mainText = "3" }
+                CustomButton(symbol = ".") { mainText = "." }
             }
 
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
             ) {
-                CustomButton(
-                    icon = R.drawable.ic_backspace,
-                    iconSize = 28.dp,
-                    symbolColor = MaterialTheme.colors.primaryVariant,
-                    offsetX = (-2).dp
-                ) {
-                    mainText = "<-"
-                }
-                CustomButton(
-                    icon = R.drawable.ic_minus,
-                    symbolColor = MaterialTheme.colors.primaryVariant
-                ) {
-                    mainText = "-"
-                }
-                CustomButton(
-                    icon = R.drawable.ic_plus,
-                    symbolColor = MaterialTheme.colors.primaryVariant
-                ) {
-                    mainText = "+"
-                }
-                CustomButton(
-                    icon = R.drawable.ic_equal,
-                    background = MaterialTheme.colors.primaryVariant,
-                    symbolColor = Color.White,
-                    borderColor = Blue700Border,
-                    height = 148.dp
-                ) {
-                    mainText = "="
-                }
+                ButtonBackspace { mainText = "<" }
+                ButtonMinus { mainText = "-" }
+                ButtonPlus { mainText = "+" }
+                ButtonEqual { mainText = "=" }
             }
         }
     }
 }
-
 
 @Preview(name = "Night")
 @Composable
 fun AppPreviewNight() {
-    CalculaTorTheme(darkTheme = true) {
-        PrepareUI {
-            AppScreen()
-        }
-    }
-}
-
-@Preview(name = "Day")
-@Composable
-fun AppPreview() {
-    CalculaTorTheme {
+    CalculaTorTheme() {
         PrepareUI {
             AppScreen()
         }
