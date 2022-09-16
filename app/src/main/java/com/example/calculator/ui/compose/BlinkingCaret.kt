@@ -29,14 +29,13 @@ fun BlinkingCaret(
         animationSpec = infiniteRepeatable(
             animation = tween(
                 durationMillis = 300,
-                delayMillis = 800,
-                easing = LinearOutSlowInEasing
+                delayMillis = 800
             )
         )
     )
     Spacer(
         modifier = Modifier
-            .fillMaxHeight()
+            .fillMaxHeight(0.7f)
             .width(width)
             .background(spacerColor)
     )
