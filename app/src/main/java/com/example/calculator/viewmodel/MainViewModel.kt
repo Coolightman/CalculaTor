@@ -8,6 +8,7 @@ import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.model.MainScreenState
+import com.example.calculator.util.RESULT_MAX_LENGTH
 import net.objecthunter.exp4j.ExpressionBuilder
 
 class MainViewModel : ViewModel() {
@@ -63,13 +64,27 @@ class MainViewModel : ViewModel() {
         val expression = ExpressionBuilder(formula).build()
 
         result = try {
-            expression.evaluate().toString()
+            val calcResult = expression.evaluate().toString()
+            formatResult(calcResult)
         } catch (e: Exception) {
             ERROR_MESSAGE
         }
-        if (result.substring(result.length - 2) == ".0") {
-            result = result.dropLast(2)
+    }
+
+    private fun formatResult(calcResult: String): String {
+        var formatResult = ""
+//        set to Integer if possible
+        formatResult = if (calcResult.substring(calcResult.length - 2) == ".0") {
+            calcResult.dropLast(2)
+        } else {
+            calcResult
         }
+
+        if (calcResult.length > RESULT_MAX_LENGTH) {
+
+
+        }
+        return formatResult
     }
 
     private fun lastCharIsOperation(): Boolean {
@@ -123,15 +138,20 @@ class MainViewModel : ViewModel() {
             } else {
                 displayedFormula += operation.symbol
             }
+            return
+        }
+
+        if (operation is CalculatorOperation.Minus){
+            displayedFormula += operation.symbol
         }
     }
 
     private fun enterDecimal() {
         val value = getLastValue()
         if (!value.contains(DECIMAL_SEPARATOR)) {
-            when {
-                value.isEmpty() -> displayedFormula += "0$DECIMAL_SEPARATOR"
-                else -> displayedFormula += DECIMAL_SEPARATOR
+            displayedFormula += when {
+                value.isEmpty() -> "0$DECIMAL_SEPARATOR"
+                else -> DECIMAL_SEPARATOR
             }
         }
     }

@@ -1,3 +1,3 @@
 package com.example.calculator.util
 
-const val RESULT_MAX_LENGTH = 15
+const val RESULT_MAX_LENGTH = 10
