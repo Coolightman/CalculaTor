@@ -19,60 +19,53 @@ fun MainScreen(
     state: MainScreenState,
     onAction: (CalculatorAction) -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        MainRow(state.mainText)
-        SecondRaw(state.secondText)
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .clip(RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp))
-                .background(MaterialTheme.colors.surface)
-                .padding(24.dp)
+    Box(contentAlignment = Alignment.BottomCenter){
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Column(
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                ButtonClear { onAction(CalculatorAction.Clear) }
-                ButtonNumber(number = "7") { onAction(CalculatorAction.Number(7)) }
-                ButtonNumber(number = "4") { onAction(CalculatorAction.Number(4)) }
-                ButtonNumber(number = "1") { onAction(CalculatorAction.Number(1)) }
-                CustomButton(symbol = "%") { }
-            }
+            MainRow(state.mainText)
+            SecondRaw(state.secondText)
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Column(
-                modifier = Modifier.fillMaxHeight()
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp))
+                    .background(MaterialTheme.colors.surface)
+                    .padding(24.dp)
             ) {
-                DivideButton { onAction(CalculatorOperation.Divide) }
-                ButtonNumber(number = "8") { onAction(CalculatorAction.Number(8)) }
-                ButtonNumber(number = "5") { onAction(CalculatorAction.Number(5)) }
-                ButtonNumber(number = "2") { onAction(CalculatorAction.Number(2)) }
-                ButtonNumber(number = "0") { onAction(CalculatorAction.Number(0)) }
-            }
+                Column {
+                    ButtonClear { onAction(CalculatorAction.Clear) }
+                    ButtonNumber(number = "7") { onAction(CalculatorAction.Number(7)) }
+                    ButtonNumber(number = "4") { onAction(CalculatorAction.Number(4)) }
+                    ButtonNumber(number = "1") { onAction(CalculatorAction.Number(1)) }
+                    CustomButton(symbol = "%") { }
+                }
 
-            Column(
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                ButtonMultiply { onAction(CalculatorOperation.Multiply) }
-                ButtonNumber(number = "9") { onAction(CalculatorAction.Number(9)) }
-                ButtonNumber(number = "6") { onAction(CalculatorAction.Number(6)) }
-                ButtonNumber(number = "3") { onAction(CalculatorAction.Number(3)) }
-                CustomButton(symbol = ".") { onAction(CalculatorAction.Decimal) }
-            }
+                Column {
+                    DivideButton { onAction(CalculatorOperation.Divide) }
+                    ButtonNumber(number = "8") { onAction(CalculatorAction.Number(8)) }
+                    ButtonNumber(number = "5") { onAction(CalculatorAction.Number(5)) }
+                    ButtonNumber(number = "2") { onAction(CalculatorAction.Number(2)) }
+                    ButtonNumber(number = "0") { onAction(CalculatorAction.Number(0)) }
+                }
 
-            Column(
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                ButtonBackspace { onAction(CalculatorAction.Backspace) }
-                ButtonMinus { onAction(CalculatorOperation.Minus) }
-                ButtonPlus { onAction(CalculatorOperation.Plus) }
-                ButtonEqual { onAction(CalculatorAction.Equal) }
+                Column {
+                    ButtonMultiply { onAction(CalculatorOperation.Multiply) }
+                    ButtonNumber(number = "9") { onAction(CalculatorAction.Number(9)) }
+                    ButtonNumber(number = "6") { onAction(CalculatorAction.Number(6)) }
+                    ButtonNumber(number = "3") { onAction(CalculatorAction.Number(3)) }
+                    CustomButton(symbol = ".") { onAction(CalculatorAction.Decimal) }
+                }
+
+                Column {
+                    ButtonBackspace { onAction(CalculatorAction.Backspace) }
+                    ButtonMinus { onAction(CalculatorOperation.Minus) }
+                    ButtonPlus { onAction(CalculatorOperation.Plus) }
+                    ButtonEqual { onAction(CalculatorAction.Equal) }
+                }
             }
         }
     }
