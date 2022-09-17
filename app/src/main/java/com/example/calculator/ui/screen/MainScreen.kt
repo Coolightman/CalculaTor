@@ -4,33 +4,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorOperation
-import com.example.calculator.model.CalculatorState
+import com.example.calculator.model.MainScreenState
 import com.example.calculator.ui.compose.*
 
 @Composable
 fun MainScreen(
-    state: CalculatorState,
+    state: MainScreenState,
     onAction: (CalculatorAction) -> Unit
 ) {
-    var mainText by remember {
-        mutableStateOf("")
-    }
-    val secondText by remember {
-        mutableStateOf("")
-    }
-    mainText = state.number1 + (state.operation?.symbol ?: "") + state.number2
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        MainRow(mainText)
-        SecondRaw(secondText)
+        MainRow(state.mainText)
+        SecondRaw(state.secondText)
         Spacer(modifier = Modifier.height(24.dp))
 
         Row(
