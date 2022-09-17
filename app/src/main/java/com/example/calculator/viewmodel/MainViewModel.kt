@@ -75,7 +75,7 @@ class MainViewModel : ViewModel() {
         val lastChar = getFormulaLastChar()
         lastChar?.let {
             return operations.contains(it.toString())
-        }?: return false
+        } ?: return false
     }
 
     private fun clearState() {
@@ -84,7 +84,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun checkError() {
-        if (state.mainText == ERROR_MESSAGE || state.secondText == ERROR_MESSAGE) clearState()
+        if (state.mainText == ERROR_MESSAGE) clearState()
     }
 
 
@@ -96,7 +96,9 @@ class MainViewModel : ViewModel() {
     }
 
     private fun performEqual() {
-        displayedFormula = result
+        displayedFormula = if (result != ERROR_MESSAGE) {
+            result
+        } else ""
         result = ""
     }
 
