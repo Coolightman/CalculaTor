@@ -6,94 +6,91 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorOperation
-import com.example.calculator.model.CalculatorState
+import com.example.calculator.model.MainScreenState
+import com.example.calculator.util.toIntOrNull
 
 class MainViewModel : ViewModel() {
 
-    var state by mutableStateOf(CalculatorState())
+    private var number1 by mutableStateOf("")
+    private var number2 by mutableStateOf("")
+    private var operation: CalculatorOperation? by mutableStateOf(null)
+
+    var mainScreenState by mutableStateOf(MainScreenState())
         private set
 
     fun onAction(action: CalculatorAction) {
         when (action) {
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
-            is CalculatorAction.Clear -> state = CalculatorState()
+            is CalculatorAction.Clear -> clearState()
             is CalculatorOperation -> enterOperation(action)
             is CalculatorAction.Equal -> performEqual()
             is CalculatorAction.Backspace -> performBackspace()
+        }
+        refreshState()
+    }
+
+    private fun clearState() {
+        number1 = ""
+        number2 = ""
+        operation = null
+    }
+
+    private fun refreshState() {
+        mainScreenState = mainScreenState.copy(
+            mainText = number1 + (operation?.symbol ?: "") + number2
+        )
+    }
+
+    private fun performEqual() {
+        val number1Double = number1.toDoubleOrNull()
+        val number2Double = number2.toDoubleOrNull()
+        if (number1Double != null && number2Double != null) {
+            val result = when (operation) {
+                is CalculatorOperation.Plus -> number1Double + number2Double
+                is CalculatorOperation.Minus -> number1Double - number2Double
+                is CalculatorOperation.Multiply -> number1Double * number2Double
+                is CalculatorOperation.Divide -> number1Double / number2Double
+                null -> return
+            }
+            clearState()
+            number1 = (result.toIntOrNull() ?: result).toString().take(15)
         }
     }
 
     private fun performBackspace() {
         when {
-            state.number2.isNotEmpty() -> state = state.copy(
-                number2 = state.number2.dropLast(1)
-            )
-            state.operation != null -> state = state.copy(
-                operation = null
-            )
-            state.number1.isNotEmpty() -> state = state.copy(
-                number1 = state.number1.dropLast(1)
-            )
-        }
-    }
-
-    private fun performEqual() {
-        val number1 = state.number1.toDoubleOrNull()
-        val number2 = state.number2.toDoubleOrNull()
-        if (number1 != null && number2 != null) {
-            val result = when (state.operation) {
-                is CalculatorOperation.Plus -> number1 + number2
-                is CalculatorOperation.Minus -> number1 - number2
-                is CalculatorOperation.Multiply -> number1 * number2
-                is CalculatorOperation.Divide -> number1 / number2
-                null -> return
-            }
-            state = state.copy(
-                number1 = result.toString().take(15),
-                number2 = "",
-                operation = null
-            )
+            number2.isNotEmpty() -> number2 = number2.dropLast(1)
+            operation != null -> operation = null
+            number1.isNotEmpty() -> number1 = number1.dropLast(1)
         }
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
-        if (state.number1.isNotEmpty()) {
-            state = state.copy(operation = operation)
+        if (number1.isNotEmpty()) {
+            this.operation = operation
         }
     }
 
     private fun enterDecimal() {
-        if (state.operation == null && !state.number1.contains(".") && state.number1.isNotEmpty()) {
-            state = state.copy(number1 = state.number1 + ".")
-            return
-        }
-
-        if (!state.number2.contains(".") && state.number2.isNotEmpty()) {
-            state = state.copy(
-                number2 = state.number2 + "."
-            )
+        if (operation == null && !number1.contains(".") && number1.isNotEmpty()) {
+            number1 += "."
+        } else if (!number2.contains(".") && number2.isNotEmpty()) {
+            number2 += "."
         }
     }
 
     private fun enterNumber(number: Int) {
-        if (state.operation == null) {
-            if (state.number1.length >= MAX_NUM_LENGTH) {
+        if (operation == null) {
+            if (number1.length >= MAX_NUM_LENGTH) {
                 return
             }
-            state = state.copy(
-                number1 = state.number1 + number
-            )
-            return
-        }
-
-        if (state.operation != null) {
-            if (state.number2.length >= MAX_NUM_LENGTH) {
+            number1 += number
+        } else {
+            if (number2.length >= MAX_NUM_LENGTH) {
                 return
             }
-            state = state.copy(
-                number2 = state.number2 + number
-            )
+            number2 += number
         }
     }
 
