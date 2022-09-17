@@ -8,7 +8,6 @@ import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.model.MainScreenState
-import com.example.calculator.util.toIntOrNull
 import net.objecthunter.exp4j.ExpressionBuilder
 
 class MainViewModel : ViewModel() {
@@ -64,10 +63,12 @@ class MainViewModel : ViewModel() {
         val expression = ExpressionBuilder(formula).build()
 
         result = try {
-            val calcResult = expression.evaluate()
-            (calcResult.toIntOrNull() ?: calcResult).toString()
+            expression.evaluate().toString()
         } catch (e: Exception) {
             ERROR_MESSAGE
+        }
+        if (result.substring(result.length - 2) == ".0") {
+            result = result.dropLast(2)
         }
     }
 
