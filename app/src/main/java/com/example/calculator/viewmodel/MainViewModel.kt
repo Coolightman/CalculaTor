@@ -19,6 +19,7 @@ class MainViewModel : ViewModel() {
         private set
 
     fun onAction(action: CalculatorAction) {
+        checkError()
         when (action) {
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
@@ -28,6 +29,10 @@ class MainViewModel : ViewModel() {
             is CalculatorAction.Backspace -> performBackspace()
         }
         refreshState()
+    }
+
+    private fun checkError() {
+        if (number1 == ERROR_MESSAGE) clearState()
     }
 
     private fun clearState() {
@@ -50,11 +55,15 @@ class MainViewModel : ViewModel() {
                 is CalculatorOperation.Plus -> number1Double + number2Double
                 is CalculatorOperation.Minus -> number1Double - number2Double
                 is CalculatorOperation.Multiply -> number1Double * number2Double
-                is CalculatorOperation.Divide -> number1Double / number2Double
+                is CalculatorOperation.Divide -> {
+                    if (number2Double != 0.0) {
+                        number1Double / number2Double
+                    } else null
+                }
                 null -> return
             }
             clearState()
-            number1 = (result.toIntOrNull() ?: result).toString().take(15)
+            number1 = result?.let { (it.toIntOrNull() ?: it).toString().take(15) } ?: ERROR_MESSAGE
         }
     }
 
@@ -96,5 +105,6 @@ class MainViewModel : ViewModel() {
 
     companion object {
         private const val MAX_NUM_LENGTH = 10
+        private const val ERROR_MESSAGE = "error"
     }
 }
