@@ -52,6 +52,7 @@ class MainViewModel : ViewModel() {
         val valueToCheck = displayedFormula.trimStart('-')
         val values = valueToCheck.split(operationsRegex).filter { it != "" }
         if (values.isEmpty() || values.size == 1) return
+        if (lastCharIsOperation()) return
 
         val formula = displayedFormula
             .replace(CalculatorOperation.Divide.symbol, "/")
@@ -65,7 +66,13 @@ class MainViewModel : ViewModel() {
         } catch (e: Exception) {
             ERROR_MESSAGE
         }
+    }
 
+    private fun lastCharIsOperation(): Boolean {
+        val lastChar = getFormulaLastChar()
+        lastChar?.let {
+            return operations.contains(it.toString())
+        }?: return false
     }
 
     private fun clearState() {
