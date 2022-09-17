@@ -23,7 +23,7 @@ class MainViewModel : ViewModel() {
         when (action) {
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
-            is CalculatorAction.Clear -> state = MainScreenState()
+            is CalculatorAction.Clear -> clearState()
             is CalculatorOperation -> enterOperation(action)
             is CalculatorAction.Equal -> performEqual()
             is CalculatorAction.Backspace -> performBackspace()
