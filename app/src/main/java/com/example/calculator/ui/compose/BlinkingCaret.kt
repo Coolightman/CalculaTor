@@ -1,10 +1,12 @@
 package com.example.calculator.ui.compose
 
 import androidx.compose.animation.animateColor
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -35,7 +37,7 @@ fun BlinkingCaret(
     )
     Spacer(
         modifier = Modifier
-            .fillMaxHeight(0.5f)
+            .height(64.dp)
             .width(width)
             .background(spacerColor)
     )

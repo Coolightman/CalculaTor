@@ -5,106 +5,160 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.calculator.model.CalculatorAction
+import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.model.MainScreenState
-import com.example.calculator.util.toIntOrNull
+import net.objecthunter.exp4j.ExpressionBuilder
 
 class MainViewModel : ViewModel() {
-
-    private var number1: String = ""
-    private var number2: String = ""
-    private var operation: CalculatorOperation? = null
 
     var state by mutableStateOf(MainScreenState())
         private set
 
+    private var result: String = ""
+    private var displayedFormula = ""
+
+    private val operations = listOf(
+        CalculatorOperation.Plus.symbol,
+        CalculatorOperation.Minus.symbol,
+        CalculatorOperation.Divide.symbol,
+        CalculatorOperation.Multiply.symbol
+    )
+
+    private val operationsRegex = "[-+÷×]".toPattern()
+
     fun onAction(action: CalculatorAction) {
         checkError()
         when (action) {
-            is CalculatorAction.Number -> enterNumber(action.number)
+            is CalculatorOperation -> enterOperation(action)
+            is CalculatorNumber -> enterNumber(action.number)
+            is CalculatorAction.Backspace -> performBackspace()
             is CalculatorAction.Decimal -> enterDecimal()
             is CalculatorAction.Clear -> clearState()
-            is CalculatorOperation -> enterOperation(action)
             is CalculatorAction.Equal -> performEqual()
-            is CalculatorAction.Backspace -> performBackspace()
         }
+        calculateIfNeed(action)
         refreshState()
     }
 
-    private fun checkError() {
-        if (number1 == ERROR_MESSAGE) clearState()
+    private fun calculateIfNeed(action: CalculatorAction) {
+        if (action is CalculatorNumber || action is CalculatorAction.Backspace) {
+            calculate()
+        }
+    }
+
+    private fun calculate() {
+        val valueToCheck = displayedFormula.trimStart('-')
+        val values = valueToCheck.split(operationsRegex).filter { it != "" }
+        if (values.isEmpty() || values.size == 1) {
+            result = ""
+            return
+        }
+        if (lastCharIsOperation()) return
+
+        val formula = displayedFormula
+            .replace(CalculatorOperation.Divide.symbol, "/")
+            .replace(CalculatorOperation.Multiply.symbol, "*")
+
+        val expression = ExpressionBuilder(formula).build()
+
+        result = try {
+            expression.evaluate().toString()
+        } catch (e: Exception) {
+            ERROR_MESSAGE
+        }
+        if (result.substring(result.length - 2) == ".0") {
+            result = result.dropLast(2)
+        }
+    }
+
+    private fun lastCharIsOperation(): Boolean {
+        val lastChar = getFormulaLastChar()
+        lastChar?.let {
+            return operations.contains(it.toString())
+        } ?: return false
     }
 
     private fun clearState() {
-        number1 = ""
-        number2 = ""
-        operation = null
+        result = ""
+        displayedFormula = ""
     }
+
+    private fun checkError() {
+        if (state.mainText == ERROR_MESSAGE) clearState()
+    }
+
 
     private fun refreshState() {
         state = state.copy(
-            mainText = number1 + (operation?.symbol ?: "") + number2
+            mainText = displayedFormula,
+            secondText = result
         )
     }
 
     private fun performEqual() {
-        val number1Double = number1.toDoubleOrNull()
-        val number2Double = number2.toDoubleOrNull()
-        if (number1Double != null && number2Double != null) {
-            val result = when (operation) {
-                is CalculatorOperation.Plus -> number1Double + number2Double
-                is CalculatorOperation.Minus -> number1Double - number2Double
-                is CalculatorOperation.Multiply -> number1Double * number2Double
-                is CalculatorOperation.Divide -> {
-                    if (number2Double != 0.0) {
-                        number1Double / number2Double
-                    } else null
-                }
-                null -> return
-            }
-            clearState()
-            number1 = result?.let { (it.toIntOrNull() ?: it).toString().take(15) } ?: ERROR_MESSAGE
-        }
+        displayedFormula = if (result != ERROR_MESSAGE) {
+            result
+        } else ""
+        result = ""
     }
 
     private fun performBackspace() {
-        when {
-            number2.isNotEmpty() -> number2 = number2.dropLast(1)
-            operation != null -> operation = null
-            number1.isNotEmpty() -> number1 = number1.dropLast(1)
+        val lastChar = getFormulaLastChar()
+        lastChar?.let {
+            displayedFormula = displayedFormula.dropLast(1)
         }
     }
 
+    private fun getFormulaLastChar() = displayedFormula.lastOrNull()
+
     private fun enterOperation(operation: CalculatorOperation) {
-        if (number1.isNotEmpty()) {
-            this.operation = operation
+        val lastChar = getFormulaLastChar()
+        lastChar?.let {
+            if (it.toString() == DECIMAL_SEPARATOR) {
+                displayedFormula = displayedFormula.dropLast(1)
+            } else if (operations.contains(it.toString())) {
+                displayedFormula = displayedFormula.dropLast(1)
+                displayedFormula += operation.symbol
+            } else {
+                displayedFormula += operation.symbol
+            }
         }
     }
 
     private fun enterDecimal() {
-        if (operation == null && !number1.contains(".") && number1.isNotEmpty()) {
-            number1 += "."
-        } else if (!number2.contains(".") && number2.isNotEmpty()) {
-            number2 += "."
+        val value = getLastValue()
+        if (!value.contains(DECIMAL_SEPARATOR)) {
+            when {
+                value.isEmpty() -> displayedFormula += "0$DECIMAL_SEPARATOR"
+                else -> displayedFormula += DECIMAL_SEPARATOR
+            }
         }
     }
 
+    private fun getLastValue(): String {
+        val valueToCheck = displayedFormula.trimStart('-')
+        return valueToCheck.substring(valueToCheck.lastIndexOfAny(operations) + 1)
+    }
+
     private fun enterNumber(number: Int) {
-        if (operation == null) {
-            if (number1.length >= MAX_NUM_LENGTH) {
-                return
-            }
-            number1 += number
-        } else {
-            if (number2.length >= MAX_NUM_LENGTH) {
-                return
-            }
-            number2 += number
+        if (number == 0) checkDoubleZero()
+        else addNumber(number)
+    }
+
+    private fun addNumber(number: Int) {
+        displayedFormula += number
+    }
+
+    private fun checkDoubleZero() {
+        val value = getLastValue()
+        if (value != "0" || value.contains(DECIMAL_SEPARATOR)) {
+            addNumber(0)
         }
     }
 
     companion object {
-        private const val MAX_NUM_LENGTH = 10
         private const val ERROR_MESSAGE = "error"
+        private const val DECIMAL_SEPARATOR = "."
     }
 }

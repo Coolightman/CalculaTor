@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
+import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.model.MainScreenState
 import com.example.calculator.ui.compose.*
@@ -38,25 +39,25 @@ fun MainScreen(
             ) {
                 Column {
                     ButtonClear { onAction(CalculatorAction.Clear) }
-                    ButtonNumber(number = "7") { onAction(CalculatorAction.Number(7)) }
-                    ButtonNumber(number = "4") { onAction(CalculatorAction.Number(4)) }
-                    ButtonNumber(number = "1") { onAction(CalculatorAction.Number(1)) }
+                    ButtonNumber(number = "7") { onAction(CalculatorNumber(7)) }
+                    ButtonNumber(number = "4") { onAction(CalculatorNumber(4)) }
+                    ButtonNumber(number = "1") { onAction(CalculatorNumber(1)) }
                     Spacer(modifier = Modifier.height(83.dp))
                 }
 
                 Column {
                     DivideButton { onAction(CalculatorOperation.Divide) }
-                    ButtonNumber(number = "8") { onAction(CalculatorAction.Number(8)) }
-                    ButtonNumber(number = "5") { onAction(CalculatorAction.Number(5)) }
-                    ButtonNumber(number = "2") { onAction(CalculatorAction.Number(2)) }
-                    ButtonNumber(number = "0") { onAction(CalculatorAction.Number(0)) }
+                    ButtonNumber(number = "8") { onAction(CalculatorNumber(8)) }
+                    ButtonNumber(number = "5") { onAction(CalculatorNumber(5)) }
+                    ButtonNumber(number = "2") { onAction(CalculatorNumber(2)) }
+                    ButtonNumber(number = "0") { onAction(CalculatorNumber(0)) }
                 }
 
                 Column {
                     ButtonMultiply { onAction(CalculatorOperation.Multiply) }
-                    ButtonNumber(number = "9") { onAction(CalculatorAction.Number(9)) }
-                    ButtonNumber(number = "6") { onAction(CalculatorAction.Number(6)) }
-                    ButtonNumber(number = "3") { onAction(CalculatorAction.Number(3)) }
+                    ButtonNumber(number = "9") { onAction(CalculatorNumber(9)) }
+                    ButtonNumber(number = "6") { onAction(CalculatorNumber(6)) }
+                    ButtonNumber(number = "3") { onAction(CalculatorNumber(3)) }
                     CustomButton(symbol = ".") { onAction(CalculatorAction.Decimal) }
                 }
 
