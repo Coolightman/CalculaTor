@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
             CalculaTorTheme {
                 PrepareUI {
                     val viewModel = viewModel<MainViewModel>()
-                    val state = viewModel.mainScreenState
+                    val state = viewModel.state
                     MainScreen(state) {
                         viewModel.onAction(it)
                     }

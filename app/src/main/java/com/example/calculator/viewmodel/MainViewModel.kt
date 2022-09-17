@@ -11,11 +11,11 @@ import com.example.calculator.util.toIntOrNull
 
 class MainViewModel : ViewModel() {
 
-    private var number1 by mutableStateOf("")
-    private var number2 by mutableStateOf("")
-    private var operation: CalculatorOperation? by mutableStateOf(null)
+    private var number1: String = ""
+    private var number2: String = ""
+    private var operation: CalculatorOperation? = null
 
-    var mainScreenState by mutableStateOf(MainScreenState())
+    var state by mutableStateOf(MainScreenState())
         private set
 
     fun onAction(action: CalculatorAction) {
@@ -23,7 +23,7 @@ class MainViewModel : ViewModel() {
         when (action) {
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
-            is CalculatorAction.Clear -> clearState()
+            is CalculatorAction.Clear -> state = MainScreenState()
             is CalculatorOperation -> enterOperation(action)
             is CalculatorAction.Equal -> performEqual()
             is CalculatorAction.Backspace -> performBackspace()
@@ -42,7 +42,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun refreshState() {
-        mainScreenState = mainScreenState.copy(
+        state = state.copy(
             mainText = number1 + (operation?.symbol ?: "") + number2
         )
     }
