@@ -51,7 +51,10 @@ class MainViewModel : ViewModel() {
     private fun calculate() {
         val valueToCheck = displayedFormula.trimStart('-')
         val values = valueToCheck.split(operationsRegex).filter { it != "" }
-        if (values.isEmpty() || values.size == 1) return
+        if (values.isEmpty() || values.size == 1) {
+            result = ""
+            return
+        }
         if (lastCharIsOperation()) return
 
         val formula = displayedFormula
