@@ -41,7 +41,7 @@ fun MainScreen(
                     ButtonNumber(number = "7") { onAction(CalculatorAction.Number(7)) }
                     ButtonNumber(number = "4") { onAction(CalculatorAction.Number(4)) }
                     ButtonNumber(number = "1") { onAction(CalculatorAction.Number(1)) }
-                    CustomButton(symbol = "%") { }
+                    Spacer(modifier = Modifier.height(83.dp))
                 }
 
                 Column {
