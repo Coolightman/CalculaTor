@@ -163,8 +163,29 @@ class MainViewModel : ViewModel() {
     private fun performBackspace() {
         val lastChar = getFormulaLastChar()
         lastChar?.let {
-            displayedFormula = displayedFormula.dropLast(1)
+            displayedFormula = if (lastCharIsENumber(it)) {
+                val index = displayedFormula.indexOf("E")
+                val drop = displayedFormula.length - index
+                displayedFormula.dropLast(drop)
+            } else {
+                displayedFormula.dropLast(1)
+            }
         }
+    }
+
+    private fun lastCharIsENumber(it: Char) = lastCharIsNumber(it) && lastNumberIncludeE()
+
+    private fun lastCharIsNumber(it: Char) = !operations.contains(it.toString())
+
+    private fun lastNumberIncludeE(): Boolean {
+        val values = displayedFormula
+            .trimStart('-')
+            .split(operationsRegex)
+            .filter { it != "" }
+
+        val lastNumber = values.takeLast(1)
+        val result = lastNumber[0].contains("E")
+        return result
     }
 
     private fun getFormulaLastChar() = displayedFormula.lastOrNull()
