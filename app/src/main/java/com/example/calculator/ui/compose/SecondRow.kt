@@ -26,7 +26,8 @@ fun SecondRaw(text: String) {
             maxLines = 1,
             style = MaterialTheme.typography.h4,
             modifier = Modifier.weight(1f),
-            textAlign = TextAlign.End
+            textAlign = TextAlign.End,
+            color = MaterialTheme.colors.onSecondary
         )
     }
 }
