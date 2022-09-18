@@ -8,7 +8,6 @@ import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.model.MainScreenState
-import com.example.calculator.util.RESULT_MAX_LENGTH
 import net.objecthunter.exp4j.ExpressionBuilder
 
 class MainViewModel : ViewModel() {
@@ -80,10 +79,15 @@ class MainViewModel : ViewModel() {
             calcResult
         }
 
-        if (calcResult.length > RESULT_MAX_LENGTH) {
+//        if (calcResult.length > RESULT_MAX_LENGTH) {
+//            val bd = BigDecimal(calcResult)
+//            val plainString = bd.toPlainString()
+//            formatResult = bd.toEngineeringString()
+//        }
 
+//        val dec = DecimalFormat("#.#")
+//        formatResult = dec.format(calcResult.toDouble())
 
-        }
         return formatResult
     }
 
@@ -132,16 +136,16 @@ class MainViewModel : ViewModel() {
         lastChar?.let {
             if (it.toString() == DECIMAL_SEPARATOR) {
                 displayedFormula = displayedFormula.dropLast(1)
-            } else if (operations.contains(it.toString())) {
+            } else if (operations.contains(it.toString()) && displayedFormula.length > 1) {
                 displayedFormula = displayedFormula.dropLast(1)
                 displayedFormula += operation.symbol
-            } else {
+            } else if(displayedFormula.length > 1){
                 displayedFormula += operation.symbol
             }
             return
         }
 
-        if (operation is CalculatorOperation.Minus){
+        if (operation is CalculatorOperation.Minus) {
             displayedFormula += operation.symbol
         }
     }
