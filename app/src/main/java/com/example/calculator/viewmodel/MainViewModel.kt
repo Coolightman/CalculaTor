@@ -90,13 +90,9 @@ class MainViewModel : ViewModel() {
         val decimalIndex = formatResult.indexOf(DECIMAL_SEPARATOR)
         val resultLength = formatResult.length
 
-//        if (decimalIndex != -1) {
-//            formatResult = checkException(formatResult)
-//        }
-
         when {
             decimalIndex == -1 -> {
-//                format Integer result or little Double result
+//                format Integer result
                 if (resultLength > RESULT_MAX_LENGTH) {
                     val dec = DecimalFormat("0.######E0")
                     formatResult = dec.format(formatResult.toDouble())
@@ -110,44 +106,28 @@ class MainViewModel : ViewModel() {
                 }
             }
             decimalIndex != -1 -> {
-//                format Double result
-                return calcResult
+//                format other Double results
+                if (resultLength > RESULT_MAX_LENGTH) {
+                    val beforeDecimalLength =
+                        formatResult.substring(0, formatResult.indexOf(DECIMAL_SEPARATOR)).length
 
+                    val dec = when {
+                        beforeDecimalLength <= 3 -> DecimalFormat("#.######")
+                        beforeDecimalLength == 4 -> DecimalFormat("#.#####")
+                        beforeDecimalLength == 5 -> DecimalFormat("#.####")
+                        beforeDecimalLength == 6 -> DecimalFormat("#.###")
+                        beforeDecimalLength == 7 -> DecimalFormat("#.##")
+                        beforeDecimalLength == 8 -> DecimalFormat("#.#")
+                        beforeDecimalLength > 8 -> DecimalFormat("0.######E0")
+                        else -> throw java.lang.NumberFormatException()
+                    }
+                    formatResult = dec.format(formatResult.toDouble())
+                }
             }
         }
 
         return formatResult
     }
-
-//    private fun checkException(formatResult: String): String {
-//        var checkedResult = ""
-//        val afterDecimal = formatResult.substring(formatResult.indexOf(DECIMAL_SEPARATOR))
-//        val beforeDecimal = formatResult.substring(0, formatResult.indexOf(DECIMAL_SEPARATOR))
-//        if (afterDecimal.length < 5) {
-//            return formatResult
-//        }
-//
-//        val lastIndex = afterDecimal.length - 1
-//
-////        check exception
-//        if (afterDecimal[lastIndex - 1] == '0' && afterDecimal[lastIndex - 2] == '0') {
-//            val exceptionBeginIndex = findExceptionBeginIndex(afterDecimal)
-//            val cutAfterDecimal = afterDecimal.substring(0, exceptionBeginIndex)
-//            checkedResult = beforeDecimal + DECIMAL_SEPARATOR + cutAfterDecimal
-//        } else return formatResult
-//
-//        return checkedResult
-//    }
-//
-//    private fun findExceptionBeginIndex(row: String): Int {
-//        var result = row.length - 2
-//        for (i in row.length - 3 downTo 0) {
-//            if (row[i] == '0') {
-//                result = i
-//            } else break
-//        }
-//        return result
-//    }
 
     private fun lastCharIsOperation(): Boolean {
         val lastChar = getFormulaLastChar()
