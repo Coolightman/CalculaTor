@@ -195,10 +195,11 @@ class MainViewModel : ViewModel() {
         lastChar?.let {
             if (it.toString() == DECIMAL_SEPARATOR) {
                 displayedFormula = displayedFormula.dropLast(1)
+                displayedFormula += operation.symbol
             } else if (operations.contains(it.toString()) && displayedFormula.length > 1) {
                 displayedFormula = displayedFormula.dropLast(1)
                 displayedFormula += operation.symbol
-            } else if (displayedFormula.length > 1) {
+            } else if (it.isDigit()){
                 displayedFormula += operation.symbol
             }
             return
