@@ -74,7 +74,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun formatResult(calcResult: String): String {
-        var formatResult = ""
+        var formatResult: String
 
 //        expand any result to non E format
         val bd = BigDecimal(calcResult)
@@ -184,8 +184,7 @@ class MainViewModel : ViewModel() {
             .filter { it != "" }
 
         val lastNumber = values.takeLast(1)
-        val result = lastNumber[0].contains("E")
-        return result
+        return lastNumber[0].contains("E")
     }
 
     private fun getFormulaLastChar() = displayedFormula.lastOrNull()
