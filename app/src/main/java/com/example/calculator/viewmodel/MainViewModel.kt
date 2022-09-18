@@ -8,7 +8,10 @@ import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.model.MainScreenState
+import com.example.calculator.util.RESULT_MAX_LENGTH
 import net.objecthunter.exp4j.ExpressionBuilder
+import java.math.BigDecimal
+import java.text.DecimalFormat
 
 class MainViewModel : ViewModel() {
 
@@ -72,24 +75,79 @@ class MainViewModel : ViewModel() {
 
     private fun formatResult(calcResult: String): String {
         var formatResult = ""
+
+//        expand any result to non E format
+        val bd = BigDecimal(calcResult)
+        formatResult = bd.toPlainString()
+
 //        set to Integer if possible
-        formatResult = if (calcResult.substring(calcResult.length - 2) == ".0") {
-            calcResult.dropLast(2)
+        formatResult = if (formatResult.substring(formatResult.length - 2) == ".0") {
+            formatResult.dropLast(2)
         } else {
-            calcResult
+            formatResult
         }
 
-//        if (calcResult.length > RESULT_MAX_LENGTH) {
-//            val bd = BigDecimal(calcResult)
-//            val plainString = bd.toPlainString()
-//            formatResult = bd.toEngineeringString()
+        val decimalIndex = formatResult.indexOf(DECIMAL_SEPARATOR)
+        val resultLength = formatResult.length
+
+//        if (decimalIndex != -1) {
+//            formatResult = checkException(formatResult)
 //        }
 
-//        val dec = DecimalFormat("#.#")
-//        formatResult = dec.format(calcResult.toDouble())
+        when {
+            decimalIndex == -1 -> {
+//                format Integer result or little Double result
+                if (resultLength > RESULT_MAX_LENGTH) {
+                    val dec = DecimalFormat("0.######E0")
+                    formatResult = dec.format(formatResult.toDouble())
+                }
+            }
+            decimalIndex == 1 && formatResult[0] == '0' -> {
+//                format little Double result
+                if (resultLength > RESULT_MAX_LENGTH) {
+                    val dec = DecimalFormat("0.#####E0")
+                    formatResult = dec.format(formatResult.toDouble())
+                }
+            }
+            decimalIndex != -1 -> {
+//                format Double result
+                return calcResult
+
+            }
+        }
 
         return formatResult
     }
+
+//    private fun checkException(formatResult: String): String {
+//        var checkedResult = ""
+//        val afterDecimal = formatResult.substring(formatResult.indexOf(DECIMAL_SEPARATOR))
+//        val beforeDecimal = formatResult.substring(0, formatResult.indexOf(DECIMAL_SEPARATOR))
+//        if (afterDecimal.length < 5) {
+//            return formatResult
+//        }
+//
+//        val lastIndex = afterDecimal.length - 1
+//
+////        check exception
+//        if (afterDecimal[lastIndex - 1] == '0' && afterDecimal[lastIndex - 2] == '0') {
+//            val exceptionBeginIndex = findExceptionBeginIndex(afterDecimal)
+//            val cutAfterDecimal = afterDecimal.substring(0, exceptionBeginIndex)
+//            checkedResult = beforeDecimal + DECIMAL_SEPARATOR + cutAfterDecimal
+//        } else return formatResult
+//
+//        return checkedResult
+//    }
+//
+//    private fun findExceptionBeginIndex(row: String): Int {
+//        var result = row.length - 2
+//        for (i in row.length - 3 downTo 0) {
+//            if (row[i] == '0') {
+//                result = i
+//            } else break
+//        }
+//        return result
+//    }
 
     private fun lastCharIsOperation(): Boolean {
         val lastChar = getFormulaLastChar()
@@ -139,7 +197,7 @@ class MainViewModel : ViewModel() {
             } else if (operations.contains(it.toString()) && displayedFormula.length > 1) {
                 displayedFormula = displayedFormula.dropLast(1)
                 displayedFormula += operation.symbol
-            } else if(displayedFormula.length > 1){
+            } else if (displayedFormula.length > 1) {
                 displayedFormula += operation.symbol
             }
             return
