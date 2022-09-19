@@ -5,8 +5,7 @@ import androidx.compose.ui.graphics.Color
 val Blue200 = Color(0xFF81D4FA)
 val Blue500 = Color(0xFF03A9F4)
 val Blue700 = Color(0xFF0288D1)
-val Blue700Border = Color(0xFF267EF3)
-val AppBlue = Color(0xFF1a73e9)
+val Blue700Border = Color(0xFF0991DB)
 
 val AppDarkGray = Color(0xFF303030)
 val DarkSurface = Color(0xFF252525)
