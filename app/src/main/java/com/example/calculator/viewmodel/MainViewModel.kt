@@ -8,10 +8,10 @@ import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.model.MainScreenState
-import com.example.calculator.util.RESULT_MAX_LENGTH
+import com.example.calculator.util.DECIMAL_SEPARATOR
+import com.example.calculator.util.ERROR_MESSAGE
+import com.example.calculator.util.formatResult
 import net.objecthunter.exp4j.ExpressionBuilder
-import java.math.BigDecimal
-import java.text.DecimalFormat
 
 class MainViewModel : ViewModel() {
 
@@ -67,66 +67,10 @@ class MainViewModel : ViewModel() {
 
         result = try {
             val calcResult = expression.evaluate().toString()
-            formatResult(calcResult)
+            calcResult.formatResult()
         } catch (e: Exception) {
             ERROR_MESSAGE
         }
-    }
-
-    private fun formatResult(calcResult: String): String {
-        var formatResult: String
-
-//        expand any result to non E format
-        val bd = BigDecimal(calcResult)
-        formatResult = bd.toPlainString()
-
-//        set to Integer if possible
-        formatResult = if (formatResult.substring(formatResult.length - 2) == ".0") {
-            formatResult.dropLast(2)
-        } else {
-            formatResult
-        }
-
-        val decimalIndex = formatResult.indexOf(DECIMAL_SEPARATOR)
-        val resultLength = formatResult.length
-
-        when {
-            decimalIndex == -1 -> {
-//                format Integer result
-                if (resultLength > RESULT_MAX_LENGTH) {
-                    val dec = DecimalFormat("0.######E0")
-                    formatResult = dec.format(formatResult.toDouble())
-                }
-            }
-            decimalIndex == 1 && formatResult[0] == '0' -> {
-//                format little Double result
-                if (resultLength > RESULT_MAX_LENGTH) {
-                    val dec = DecimalFormat("0.#####E0")
-                    formatResult = dec.format(formatResult.toDouble())
-                }
-            }
-            decimalIndex != -1 -> {
-//                format other Double results
-                if (resultLength > RESULT_MAX_LENGTH) {
-                    val beforeDecimalLength =
-                        formatResult.substring(0, formatResult.indexOf(DECIMAL_SEPARATOR)).length
-
-                    val dec = when {
-                        beforeDecimalLength <= 3 -> DecimalFormat("#.######")
-                        beforeDecimalLength == 4 -> DecimalFormat("#.#####")
-                        beforeDecimalLength == 5 -> DecimalFormat("#.####")
-                        beforeDecimalLength == 6 -> DecimalFormat("#.###")
-                        beforeDecimalLength == 7 -> DecimalFormat("#.##")
-                        beforeDecimalLength == 8 -> DecimalFormat("#.#")
-                        beforeDecimalLength > 8 -> DecimalFormat("0.######E0")
-                        else -> throw java.lang.NumberFormatException()
-                    }
-                    formatResult = dec.format(formatResult.toDouble())
-                }
-            }
-        }
-
-        return formatResult
     }
 
     private fun lastCharIsOperation(): Boolean {
@@ -198,7 +142,7 @@ class MainViewModel : ViewModel() {
             } else if (operations.contains(it.toString()) && displayedFormula.length > 1) {
                 displayedFormula = displayedFormula.dropLast(1)
                 displayedFormula += operation.symbol
-            } else if (it.isDigit()){
+            } else if (it.isDigit()) {
                 displayedFormula += operation.symbol
             }
             return
@@ -238,10 +182,5 @@ class MainViewModel : ViewModel() {
         if (value != "0" || value.contains(DECIMAL_SEPARATOR)) {
             addNumber(0)
         }
-    }
-
-    companion object {
-        private const val ERROR_MESSAGE = "error"
-        private const val DECIMAL_SEPARATOR = "."
     }
 }

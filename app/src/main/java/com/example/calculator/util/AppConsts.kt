@@ -1,3 +1,8 @@
 package com.example.calculator.util
 
-const val RESULT_MAX_LENGTH = 9
+//must not be lower then 10
+//may be increased
+const val RESULT_MAX_LENGTH = 10
+
+const val DECIMAL_SEPARATOR = "."
+const val ERROR_MESSAGE = "error"
