@@ -3,6 +3,8 @@ package com.example.calculator.ui.compose
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomSheetState
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,9 +15,14 @@ import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Keyboard(
+    scope: CoroutineScope,
+    sheetState: BottomSheetState,
     modifier: Modifier = Modifier,
     onAction: (CalculatorAction) -> Unit
 ) {
@@ -45,11 +52,13 @@ fun Keyboard(
             ButtonNumber(number = "7") { onAction(CalculatorNumber(7)) }
             ButtonNumber(number = "4") { onAction(CalculatorNumber(4)) }
             ButtonNumber(number = "1") { onAction(CalculatorNumber(1)) }
-            Spacer(
-                modifier = Modifier
-                    .width(65.dp)
-                    .height(65.dp)
-            )
+            ButtonExpandBottomSheet {
+                scope.launch {
+                    if (sheetState.isCollapsed) {
+                        sheetState.expand()
+                    }
+                }
+            }
         }
 
         Column(

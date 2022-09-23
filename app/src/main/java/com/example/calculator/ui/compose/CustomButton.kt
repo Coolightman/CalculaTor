@@ -202,3 +202,13 @@ fun ButtonNumber(number: String, onClick: () -> Unit) {
         onClick()
     }
 }
+
+@Composable
+fun ButtonExpandBottomSheet(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.ic_expand,
+        symbolColor = MaterialTheme.colors.primaryVariant,
+    ) {
+        onClick()
+    }
+}

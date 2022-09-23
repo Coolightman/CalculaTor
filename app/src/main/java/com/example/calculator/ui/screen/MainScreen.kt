@@ -1,8 +1,10 @@
 package com.example.calculator.ui.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Scaffold
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -14,12 +16,35 @@ import com.example.calculator.ui.compose.PrepareUI
 import com.example.calculator.ui.compose.SecondRaw
 import com.example.calculator.ui.theme.CalculaTorTheme
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScreen(
     state: MainScreenState,
     onAction: (CalculatorAction) -> Unit
 ) {
-    Scaffold { contentPadding ->
+    val sheetState = rememberBottomSheetState(
+        initialValue = BottomSheetValue.Collapsed
+    )
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = sheetState
+    )
+    val scope = rememberCoroutineScope()
+
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetBackgroundColor = MaterialTheme.colors.surface,
+        sheetShape = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp),
+        sheetPeekHeight = 0.dp,
+        sheetElevation = 0.dp,
+        sheetContent = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+            ) {
+
+            }
+        }) { contentPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -40,7 +65,7 @@ fun MainScreen(
                     .padding(horizontal = 12.dp)
             )
             Spacer(modifier = Modifier.height(24.dp))
-            Keyboard(onAction = onAction)
+            Keyboard(scope, sheetState = sheetState, onAction = onAction)
         }
     }
 }
