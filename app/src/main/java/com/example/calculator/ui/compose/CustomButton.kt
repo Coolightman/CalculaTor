@@ -5,7 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
@@ -24,6 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.R
 import com.example.calculator.ui.theme.Blue700Border
+
+private const val DEF_BUTTON_SIZE = 64
+private const val KEYBOARD_ROWS_NUMBER = 5
+private const val KEYBOARD_SPACE_NUMBER = KEYBOARD_ROWS_NUMBER + 1
 
 @Composable
 fun CustomButton(
@@ -33,8 +40,8 @@ fun CustomButton(
     symbolColor: Color = MaterialTheme.colors.onBackground,
     background: Color = MaterialTheme.colors.secondary,
     borderColor: Color = MaterialTheme.colors.secondaryVariant,
-    width: Dp = 65.dp,
-    height: Dp = 65.dp,
+    width: Dp = DEF_BUTTON_SIZE.dp,
+    height: Dp = DEF_BUTTON_SIZE.dp,
     textStyle: TextStyle = MaterialTheme.typography.h4,
     offsetX: Dp = 0.dp,
     offsetY: Dp = 0.dp,
@@ -44,7 +51,7 @@ fun CustomButton(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .size(width = width, height = height)
-            .shadow(6.dp, CircleShape)
+            .shadow(4.dp, CircleShape)
             .background(background)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
@@ -75,7 +82,6 @@ fun CustomButton(
             )
         }
     }
-    Spacer(modifier = Modifier.height(18.dp))
 }
 
 @Composable
@@ -83,15 +89,15 @@ fun DivideButton(
     symbolColor: Color = MaterialTheme.colors.primaryVariant,
     background: Color = MaterialTheme.colors.secondary,
     borderColor: Color = MaterialTheme.colors.secondaryVariant,
-    width: Dp = 65.dp,
-    height: Dp = 65.dp,
+    width: Dp = DEF_BUTTON_SIZE.dp,
+    height: Dp = DEF_BUTTON_SIZE.dp,
     onClick: () -> Unit
 ) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .size(width = width, height = height)
-            .shadow(6.dp, CircleShape)
+            .shadow(4.dp, CircleShape)
             .background(background)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
@@ -110,7 +116,6 @@ fun DivideButton(
             modifier = Modifier.offset(y = (-2).dp)
         )
     }
-    Spacer(modifier = Modifier.height(18.dp))
 }
 
 
@@ -157,13 +162,20 @@ fun ButtonPlus(onClick: () -> Unit) {
 }
 
 @Composable
-fun ButtonEqual(onClick: () -> Unit) {
+fun ButtonEqual(
+    keyboardHeightPx: Int,
+    onClick: () -> Unit
+) {
+    val keyboardHeightDp = LocalDensity.current.run { keyboardHeightPx.toDp() }
+    val space =
+        (keyboardHeightDp.value - (DEF_BUTTON_SIZE * KEYBOARD_ROWS_NUMBER)) / KEYBOARD_SPACE_NUMBER
+    val buttonHeight = DEF_BUTTON_SIZE * 2 + space
     CustomButton(
         icon = R.drawable.ic_equal,
         background = MaterialTheme.colors.primaryVariant,
         symbolColor = Color.White,
         borderColor = Blue700Border,
-        height = 148.dp
+        height = buttonHeight.dp
     ) {
         onClick()
     }

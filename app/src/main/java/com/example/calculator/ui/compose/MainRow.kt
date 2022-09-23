@@ -1,8 +1,6 @@
 package com.example.calculator.ui.compose
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -16,32 +14,32 @@ import com.example.calculator.util.RESULT_MAX_LENGTH
 
 private const val MIN_FONT_SIZE = 20
 private const val DEFAULT_FONT_SIZE = 48
-private const val DEFAULT_CARET_HEIGHT = 64
 
 @Composable
-fun MainRow(text: String) {
+fun MainRow(
+    text: String,
+    modifier: Modifier = Modifier
+) {
     Row(
-        verticalAlignment = Alignment.Bottom,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp)
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
     ) {
         var fontSize by remember {
             mutableStateOf(DEFAULT_FONT_SIZE.sp)
         }
 
         var caretHeight by remember {
-            mutableStateOf(DEFAULT_CARET_HEIGHT.dp)
+            mutableStateOf((fontSize.value * 1.1).dp)
         }
 
         LaunchedEffect(key1 = text.isEmpty() || text.length <= RESULT_MAX_LENGTH) {
             fontSize = DEFAULT_FONT_SIZE.sp
-            caretHeight = DEFAULT_CARET_HEIGHT.dp
+            caretHeight = (fontSize.value * 1.1).dp
         }
 
         Text(
             text = text,
-            maxLines = 2,
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.h3,
             fontSize = fontSize,
@@ -50,7 +48,7 @@ fun MainRow(text: String) {
             onTextLayout = { textLayoutResult ->
                 if (textLayoutResult.hasVisualOverflow && fontSize > MIN_FONT_SIZE.sp) {
                     fontSize = (fontSize.value - 2).sp
-                    caretHeight = (caretHeight.value - 2.6).dp
+                    caretHeight = (fontSize.value * 1.1).dp
                 }
             }
         )
