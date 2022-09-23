@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorNumber
 import com.example.calculator.model.CalculatorOperation
+import com.example.calculator.util.CORNER_SHAPE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -36,7 +37,7 @@ fun Keyboard(
         modifier = modifier
             .fillMaxWidth()
             .height(450.dp)
-            .clip(RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp))
+            .clip(RoundedCornerShape(topStart = CORNER_SHAPE.dp, topEnd = CORNER_SHAPE.dp))
             .background(MaterialTheme.colors.surface)
             .onGloballyPositioned { coordinates ->
                 keyboardHeightPx = coordinates.size.height

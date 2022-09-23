@@ -10,10 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.MainScreenState
-import com.example.calculator.ui.compose.Keyboard
-import com.example.calculator.ui.compose.MainRow
-import com.example.calculator.ui.compose.PrepareUI
-import com.example.calculator.ui.compose.SecondRaw
+import com.example.calculator.ui.compose.*
 import com.example.calculator.ui.theme.CalculaTorTheme
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -37,13 +34,7 @@ fun MainScreen(
         sheetPeekHeight = 0.dp,
         sheetElevation = 0.dp,
         sheetContent = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-            ) {
-
-            }
+            BottomKeyboard(scope = scope, sheetState = sheetState, onAction = onAction)
         }) { contentPadding ->
         Column(
             modifier = Modifier
@@ -65,7 +56,7 @@ fun MainScreen(
                     .padding(horizontal = 12.dp)
             )
             Spacer(modifier = Modifier.height(24.dp))
-            Keyboard(scope, sheetState = sheetState, onAction = onAction)
+            Keyboard(scope = scope, sheetState = sheetState, onAction = onAction)
         }
     }
 }
