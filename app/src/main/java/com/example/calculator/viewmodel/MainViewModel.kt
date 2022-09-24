@@ -1,5 +1,6 @@
 package com.example.calculator.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -39,6 +40,7 @@ class MainViewModel : ViewModel() {
             is CalculatorAction.Decimal -> enterDecimal()
             is CalculatorAction.Clear -> clearState()
             is CalculatorAction.Equal -> performEqual()
+            else -> Log.d("MainViewModel", "else operation")
         }
         calculateIfNeed(action)
         refreshState()

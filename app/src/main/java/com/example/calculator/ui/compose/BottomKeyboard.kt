@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
+import com.example.calculator.model.CalculatorAddOperation
 import com.example.calculator.ui.theme.Blue700Border
 import com.example.calculator.util.CORNER_SHAPE
 import kotlinx.coroutines.CoroutineScope
@@ -52,19 +53,19 @@ fun BottomKeyboard(
             ) {
                 ButtonSqrt {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Sqrt)
                 }
                 ButtonExponent {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Exp)
                 }
                 ButtonFactorial {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Factorial)
                 }
                 ButtonRoundToInt {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Round)
                 }
             }
 
@@ -75,19 +76,19 @@ fun BottomKeyboard(
             ) {
                 ButtonLongTitle(symbol = "log2") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Log2)
                 }
                 ButtonLongTitle(symbol = "lg") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Lg)
                 }
                 ButtonLongTitle(symbol = "1/x") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.OneDivide)
                 }
                 ButtonLongTitle(symbol = "%") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Percent)
                 }
             }
 
@@ -98,19 +99,19 @@ fun BottomKeyboard(
             ) {
                 ButtonLongTitle(symbol = "sin") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Sin)
                 }
                 ButtonLongTitle(symbol = "cos") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Cos)
                 }
                 ButtonLongTitle(symbol = "tg") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Tg)
                 }
                 ButtonLongTitle(symbol = "ctg") {
                     scope.launch { sheetState.collapse() }
-//                    onAction(CalculatorAction.Decimal)
+                    onAction(CalculatorAddOperation.Ctg)
                 }
             }
         }
