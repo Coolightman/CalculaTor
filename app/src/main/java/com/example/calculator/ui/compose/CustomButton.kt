@@ -85,39 +85,18 @@ fun CustomButton(
 }
 
 @Composable
-fun DivideButton(
-    symbolColor: Color = MaterialTheme.colors.primaryVariant,
-    background: Color = MaterialTheme.colors.secondary,
-    borderColor: Color = MaterialTheme.colors.secondaryVariant,
-    width: Dp = DEF_BUTTON_SIZE.dp,
-    height: Dp = DEF_BUTTON_SIZE.dp,
-    onClick: () -> Unit
-) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .size(width = width, height = height)
-            .shadow(4.dp, CircleShape)
-            .background(background)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(color = Color.Black)
-            ) { onClick() }
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = CircleShape
-            )
-    ) {
-        Text(
-            text = "\u00F7",
-            color = symbolColor,
-            fontSize = 42.sp,
-            modifier = Modifier.offset(y = (-2).dp)
+fun DivideButton(onClick: () -> Unit) {
+    CustomButton(
+        symbol = "\u00F7",
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetY = (-2).dp,
+        textStyle = MaterialTheme.typography.h4.copy(
+            fontSize = 42.sp
         )
+    ) {
+        onClick()
     }
 }
-
 
 @Composable
 fun ButtonClear(onClick: () -> Unit) {
