@@ -6,12 +6,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.MainScreenState
-import com.example.calculator.ui.compose.*
-import com.example.calculator.ui.theme.CalculaTorTheme
+import com.example.calculator.ui.compose.BottomKeyboard
+import com.example.calculator.ui.compose.Keyboard
+import com.example.calculator.ui.compose.MainRow
+import com.example.calculator.ui.compose.SecondRaw
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -57,24 +58,6 @@ fun MainScreen(
             )
             Spacer(modifier = Modifier.height(24.dp))
             Keyboard(scope = scope, sheetState = sheetState, onAction = onAction)
-        }
-    }
-}
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-@Composable
-fun MainScreenPreview() {
-    CalculaTorTheme {
-        PrepareUI {
-            MainScreen(
-                state = MainScreenState(
-                    mainText = "2+2x2",
-                    secondText = "6"
-                )
-            ) {}
         }
     }
 }

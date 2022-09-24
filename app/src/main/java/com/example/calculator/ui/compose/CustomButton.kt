@@ -191,3 +191,71 @@ fun ButtonExpandBottomSheet(onClick: () -> Unit) {
         onClick()
     }
 }
+
+@Composable
+fun ButtonFactorial(onClick: () -> Unit) {
+    CustomButton(
+        symbol = "x!",
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetY = (-2).dp,
+        offsetX = (1).dp,
+        textStyle = MaterialTheme.typography.h4.copy(
+            fontSize = 28.sp
+        )
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonRoundToInt(onClick: () -> Unit) {
+    CustomButton(
+        symbol = "|x|",
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetY = (-2).dp,
+        offsetX = (1).dp,
+        textStyle = MaterialTheme.typography.h4.copy(
+            fontSize = 28.sp
+        )
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonExponent(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.ic_exponent,
+        iconSize = 28.dp,
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetX = (3).dp
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonSqrt(onClick: () -> Unit) {
+    CustomButton(
+        icon = R.drawable.sqrt,
+        iconSize = 28.dp,
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetY = 2.dp
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonLongTitle(symbol: String, onClick: () -> Unit) {
+    CustomButton(
+        symbol = symbol,
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetY = (-2).dp,
+        textStyle = MaterialTheme.typography.h4.copy(
+            fontSize = 24.sp
+        )
+    ) {
+        onClick()
+    }
+}
