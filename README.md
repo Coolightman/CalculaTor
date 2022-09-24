@@ -7,4 +7,4 @@ Simple calculator for Dark and Light themes
 Kotlin, Compose, exp4j
 
 ## App screenshots
-<img src="https://user-images.githubusercontent.com/43218153/190898643-7dce6e6b-7160-4a96-87bd-6a630e7ba9af.jpg" alt="drawing" width="270"/>     <img src="https://user-images.githubusercontent.com/43218153/190898641-1cf3302c-797e-4051-aeea-4678b6a1517b.jpg" alt="drawing" width="270"/>
+<img src="https://user-images.githubusercontent.com/43218153/192092694-fe71c940-00e3-462f-9847-8ce5a9e3cd44.jpg" alt="drawing" width="270"/>     <img src="https://user-images.githubusercontent.com/43218153/192092695-088560c9-2fdd-4261-a7a7-a59c490660a4.jpg" alt="drawing" width="270"/>     <img src="https://user-images.githubusercontent.com/43218153/192092696-d3e01f5d-04f3-48cc-8194-1d3dd9e73098.jpg" alt="drawing" width="270"/>
