@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun BlinkingCaret(
     width: Dp = 2.dp,
     color: Color = MaterialTheme.colors.primaryVariant,
-    height: Dp = 64.dp
+    height: Dp
 ) {
     val infiniteTransition = rememberInfiniteTransition()
     val spacerColor by infiniteTransition.animateColor(

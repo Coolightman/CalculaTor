@@ -4,14 +4,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.calculator.model.CalculatorAction
-import com.example.calculator.model.CalculatorNumber
-import com.example.calculator.model.CalculatorOperation
-import com.example.calculator.model.MainScreenState
+import androidx.lifecycle.viewModelScope
+import com.example.calculator.model.*
 import com.example.calculator.util.DECIMAL_SEPARATOR
 import com.example.calculator.util.ERROR_MESSAGE
 import com.example.calculator.util.formatResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
+import java.math.BigInteger
+import kotlin.math.*
 
 class MainViewModel : ViewModel() {
 
@@ -25,10 +28,11 @@ class MainViewModel : ViewModel() {
         CalculatorOperation.Plus.symbol,
         CalculatorOperation.Minus.symbol,
         CalculatorOperation.Divide.symbol,
-        CalculatorOperation.Multiply.symbol
+        CalculatorOperation.Multiply.symbol,
+        CalculatorOperation.Exp.symbol
     )
 
-    private val operationsRegex = "[-+÷×]".toPattern()
+    private val operationsRegex = "[-+÷×^]".toPattern()
 
     fun onAction(action: CalculatorAction) {
         checkError()
@@ -39,9 +43,94 @@ class MainViewModel : ViewModel() {
             is CalculatorAction.Decimal -> enterDecimal()
             is CalculatorAction.Clear -> clearState()
             is CalculatorAction.Equal -> performEqual()
+            is CalculatorAddOperation -> performAddOperation(action)
         }
         calculateIfNeed(action)
         refreshState()
+    }
+
+    private fun performAddOperation(action: CalculatorAddOperation) {
+        if (displayedFormula.isEmpty()) return
+
+        val values = displayedFormula
+            .trimStart('-')
+            .split(operationsRegex)
+            .filter { it != "" }
+
+        if (values.size == 1) {
+            val number = displayedFormula.toDouble()
+            viewModelScope.launch {
+                val deferred = async(Dispatchers.Default) {
+                    when (action) {
+                        is CalculatorAddOperation.Sin -> calculateSin(number)
+                        is CalculatorAddOperation.Cos -> calculateCos(number)
+                        is CalculatorAddOperation.Tg -> calculateTg(number)
+                        is CalculatorAddOperation.Ctg -> calculateCtg(number)
+                        is CalculatorAddOperation.Sqrt -> calculateSqrt(number)
+                        is CalculatorAddOperation.Round -> calculateRound(number)
+                        is CalculatorAddOperation.Percent -> calculatePercent(number)
+                        is CalculatorAddOperation.OneDivide -> calculateOneDivide(number)
+                        is CalculatorAddOperation.Lg -> calculateLg(number)
+                        is CalculatorAddOperation.Log2 -> calculateLog2(number)
+                        is CalculatorAddOperation.Factorial -> calculateFactorial(number)
+                    }
+                }
+                try {
+                    displayedFormula = deferred.await().formatResult()
+                } catch (e: Exception) {
+                    result = ERROR_MESSAGE
+                }
+                refreshState()
+            }
+        }
+    }
+
+    private fun calculateFactorial(number: Double): String {
+        var factorial = BigInteger.ONE
+        for (i in 1..number.toInt()) {
+            factorial = factorial.multiply(BigInteger.valueOf(i.toLong()))
+        }
+        return factorial.toString()
+    }
+
+    private fun calculateRound(number: Double): String {
+        return number.roundToLong().toString()
+    }
+
+    private fun calculateOneDivide(number: Double): String {
+        return (1 / number).toString()
+    }
+
+    private fun calculateLog2(number: Double): String {
+        return log2(number).toString()
+    }
+
+    private fun calculateLg(number: Double): String {
+        return log10(number).toString()
+    }
+
+    private fun calculatePercent(number: Double): String {
+        return (number * 100).toString()
+    }
+
+    private fun calculateSqrt(number: Double): String {
+        return sqrt(number).toString()
+    }
+
+    private fun calculateCtg(number: Double): String {
+        return (1 / tan((Math.PI / 180) * number)).toString()
+    }
+
+    private fun calculateTg(number: Double): String {
+        return tan((Math.PI / 180) * number).toString()
+    }
+
+    private fun calculateCos(number: Double): String {
+        return cos((Math.PI / 180) * number).toString()
+    }
+
+    private fun calculateSin(number: Double): String {
+        return sin((Math.PI / 180) * number).toString()
     }
 
     private fun calculateIfNeed(action: CalculatorAction) {
@@ -140,8 +229,12 @@ class MainViewModel : ViewModel() {
                 displayedFormula = displayedFormula.dropLast(1)
                 displayedFormula += operation.symbol
             } else if (operations.contains(it.toString()) && displayedFormula.length > 1) {
-                displayedFormula = displayedFormula.dropLast(1)
-                displayedFormula += operation.symbol
+                if (operation is CalculatorOperation.Minus && lastChar == '^') {
+                    displayedFormula += operation.symbol
+                } else {
+                    displayedFormula = displayedFormula.dropLast(1)
+                    displayedFormula += operation.symbol
+                }
             } else if (it.isDigit()) {
                 displayedFormula += operation.symbol
             }
