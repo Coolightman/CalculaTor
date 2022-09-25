@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -210,12 +211,12 @@ fun ButtonFactorial(onClick: () -> Unit) {
 @Composable
 fun ButtonRoundToInt(onClick: () -> Unit) {
     CustomButton(
-        symbol = "|x|",
+        symbol = "[X]",
         symbolColor = MaterialTheme.colors.primaryVariant,
-        offsetY = (-2).dp,
-        offsetX = (1).dp,
+        offsetY = (-1).dp,
         textStyle = MaterialTheme.typography.h4.copy(
-            fontSize = 28.sp
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold
         )
     ) {
         onClick()
@@ -254,6 +255,20 @@ fun ButtonLongTitle(symbol: String, onClick: () -> Unit) {
         offsetY = (-2).dp,
         textStyle = MaterialTheme.typography.h4.copy(
             fontSize = 24.sp
+        )
+    ) {
+        onClick()
+    }
+}
+
+@Composable
+fun ButtonLg(symbol: String, onClick: () -> Unit) {
+    CustomButton(
+        symbol = symbol,
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetY = (-2).dp,
+        textStyle = MaterialTheme.typography.h4.copy(
+            fontSize = 20.sp
         )
     ) {
         onClick()

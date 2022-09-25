@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.calculator.model.CalculatorAction
 import com.example.calculator.model.CalculatorAddOperation
+import com.example.calculator.model.CalculatorOperation
 import com.example.calculator.ui.theme.Blue700Border
 import com.example.calculator.util.CORNER_SHAPE
 import kotlinx.coroutines.CoroutineScope
@@ -57,7 +58,7 @@ fun BottomKeyboard(
                 }
                 ButtonExponent {
                     scope.launch { sheetState.collapse() }
-                    onAction(CalculatorAddOperation.Exp)
+                    onAction(CalculatorOperation.Exp)
                 }
                 ButtonFactorial {
                     scope.launch { sheetState.collapse() }
@@ -74,11 +75,11 @@ fun BottomKeyboard(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                ButtonLongTitle(symbol = "log2") {
+                ButtonLg(symbol = "log2") {
                     scope.launch { sheetState.collapse() }
                     onAction(CalculatorAddOperation.Log2)
                 }
-                ButtonLongTitle(symbol = "lg") {
+                ButtonLg(symbol = "lg") {
                     scope.launch { sheetState.collapse() }
                     onAction(CalculatorAddOperation.Lg)
                 }

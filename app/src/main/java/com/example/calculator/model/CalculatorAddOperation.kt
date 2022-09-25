@@ -6,7 +6,6 @@ sealed class CalculatorAddOperation() : CalculatorAction() {
     object Tg : CalculatorAddOperation()
     object Ctg : CalculatorAddOperation()
     object Sqrt : CalculatorAddOperation()
-    object Exp : CalculatorAddOperation()
     object Factorial : CalculatorAddOperation()
     object Round : CalculatorAddOperation()
     object Log2 : CalculatorAddOperation()
