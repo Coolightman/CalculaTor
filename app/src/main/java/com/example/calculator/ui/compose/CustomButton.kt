@@ -56,7 +56,7 @@ fun CustomButton(
             .background(background)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = false, radius = 64.dp)
+                indication = rememberRipple(bounded = false, radius = 100.dp)
             ) { onClick() }
             .border(
                 width = 1.dp,
