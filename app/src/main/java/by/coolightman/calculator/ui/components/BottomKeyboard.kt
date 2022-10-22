@@ -44,16 +44,20 @@ fun BottomKeyboard(
                     color = Blue700Border,
                     shape = RoundedCornerShape(topStart = CORNER_SHAPE.dp, topEnd = CORNER_SHAPE.dp)
                 )
+                .padding(horizontal = 12.dp)
 
         ) {
-            DragElement(Modifier.padding(top = 10.dp))
+            DragElement(Modifier.padding(vertical = 10.dp))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
+                ) {
                     ButtonSqrt {
                         scope.launch { sheetState.collapse() }
                         onAction(CalculatorAddOperation.Sqrt)
@@ -70,7 +74,10 @@ fun BottomKeyboard(
                     }
                 }
 
-                Column {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
+                ) {
                     ButtonExponent {
                         scope.launch { sheetState.collapse() }
                         onAction(CalculatorOperation.Exp)
@@ -87,7 +94,10 @@ fun BottomKeyboard(
                     }
                 }
 
-                Column {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
+                ) {
                     ButtonFactorial {
                         scope.launch { sheetState.collapse() }
                         onAction(CalculatorAddOperation.Factorial)
@@ -104,7 +114,10 @@ fun BottomKeyboard(
                     }
                 }
 
-                Column {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
+                ) {
                     ButtonRoundToInt {
                         scope.launch { sheetState.collapse() }
                         onAction(CalculatorAddOperation.Round)

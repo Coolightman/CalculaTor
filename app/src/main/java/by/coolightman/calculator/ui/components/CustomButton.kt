@@ -6,6 +6,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -206,6 +208,7 @@ fun ButtonFactorial(onClick: () -> Unit) {
     ) {
         onClick()
     }
+    Spacer(modifier = Modifier.fillMaxHeight(0.02f))
 }
 
 @Composable
@@ -221,6 +224,7 @@ fun ButtonRoundToInt(onClick: () -> Unit) {
     ) {
         onClick()
     }
+    Spacer(modifier = Modifier.fillMaxHeight(0.02f))
 }
 
 @Composable
@@ -233,6 +237,7 @@ fun ButtonExponent(onClick: () -> Unit) {
     ) {
         onClick()
     }
+    Spacer(modifier = Modifier.fillMaxHeight(0.02f))
 }
 
 @Composable
@@ -245,6 +250,7 @@ fun ButtonSqrt(onClick: () -> Unit) {
     ) {
         onClick()
     }
+    Spacer(modifier = Modifier.fillMaxHeight(0.02f))
 }
 
 @Composable
@@ -259,6 +265,7 @@ fun ButtonLongTitle(symbol: String, onClick: () -> Unit) {
     ) {
         onClick()
     }
+    Spacer(modifier = Modifier.fillMaxHeight(0.02f))
 }
 
 @Composable
@@ -273,4 +280,5 @@ fun ButtonLg(symbol: String, onClick: () -> Unit) {
     ) {
         onClick()
     }
+    Spacer(modifier = Modifier.fillMaxHeight(0.02f))
 }
