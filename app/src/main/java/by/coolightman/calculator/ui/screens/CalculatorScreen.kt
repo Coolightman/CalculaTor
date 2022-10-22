@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import by.coolightman.calculator.ui.components.BottomKeyboard
@@ -30,6 +31,16 @@ fun CalculatorScreen(
         sheetShape = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp),
         sheetPeekHeight = 0.dp,
         sheetElevation = 0.dp,
+        content = {
+            Box(modifier = Modifier.fillMaxSize()) {
+                CalculatorMainPart(
+                    viewModel = viewModel,
+                    scope = scope,
+                    sheetState = sheetState,
+                    navHostController = navHostController
+                )
+            }
+        },
         sheetContent = {
             BottomKeyboard(
                 scope = scope,
@@ -37,12 +48,5 @@ fun CalculatorScreen(
                 onAction = { viewModel.onAction(it) }
             )
         }
-    ) {
-        CalculatorMainPart(
-            viewModel = viewModel,
-            scope = scope,
-            sheetState = sheetState,
-            navHostController = navHostController
-        )
-    }
+    )
 }
