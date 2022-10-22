@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.compose
+package by.coolightman.calculator.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

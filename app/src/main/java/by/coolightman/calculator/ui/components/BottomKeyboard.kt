@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.compose
+package by.coolightman.calculator.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,6 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import by.coolightman.calculator.model.CalculatorAddOperation
+import by.coolightman.calculator.model.CalculatorOperation
 import by.coolightman.calculator.ui.theme.Blue700Border
 import by.coolightman.calculator.util.CORNER_SHAPE
 import kotlinx.coroutines.CoroutineScope
@@ -51,19 +53,19 @@ fun BottomKeyboard(
             ) {
                 ButtonSqrt {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Sqrt)
+                    onAction(CalculatorAddOperation.Sqrt)
                 }
                 ButtonExponent {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorOperation.Exp)
+                    onAction(CalculatorOperation.Exp)
                 }
                 ButtonFactorial {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Factorial)
+                    onAction(CalculatorAddOperation.Factorial)
                 }
                 ButtonRoundToInt {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Round)
+                    onAction(CalculatorAddOperation.Round)
                 }
             }
 
@@ -74,19 +76,19 @@ fun BottomKeyboard(
             ) {
                 ButtonLg(symbol = "log2") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Log2)
+                    onAction(CalculatorAddOperation.Log2)
                 }
                 ButtonLg(symbol = "lg") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Lg)
+                    onAction(CalculatorAddOperation.Lg)
                 }
                 ButtonLongTitle(symbol = "1/x") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.OneDivide)
+                    onAction(CalculatorAddOperation.OneDivide)
                 }
                 ButtonLongTitle(symbol = "%") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Percent)
+                    onAction(CalculatorAddOperation.Percent)
                 }
             }
 
@@ -97,19 +99,19 @@ fun BottomKeyboard(
             ) {
                 ButtonLongTitle(symbol = "sin") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Sin)
+                    onAction(CalculatorAddOperation.Sin)
                 }
                 ButtonLongTitle(symbol = "cos") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Cos)
+                    onAction(CalculatorAddOperation.Cos)
                 }
                 ButtonLongTitle(symbol = "tg") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Tg)
+                    onAction(CalculatorAddOperation.Tg)
                 }
                 ButtonLongTitle(symbol = "ctg") {
                     scope.launch { sheetState.collapse() }
-                    onAction(by.coolightman.calculator.model.CalculatorAddOperation.Ctg)
+                    onAction(CalculatorAddOperation.Ctg)
                 }
             }
         }

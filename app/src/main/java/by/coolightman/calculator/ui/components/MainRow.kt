@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.compose
+package by.coolightman.calculator.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.MaterialTheme

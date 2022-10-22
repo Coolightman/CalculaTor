@@ -1,4 +1,4 @@
-package by.coolightman.calculator.viewmodel
+package by.coolightman.calculator.ui.screens
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +9,6 @@ import by.coolightman.calculator.model.CalculatorAction
 import by.coolightman.calculator.model.CalculatorAddOperation
 import by.coolightman.calculator.model.CalculatorNumber
 import by.coolightman.calculator.model.CalculatorOperation
-import by.coolightman.calculator.model.MainScreenState
 import by.coolightman.calculator.util.DECIMAL_SEPARATOR
 import by.coolightman.calculator.util.ERROR_MESSAGE
 import by.coolightman.calculator.util.formatResult
@@ -28,7 +27,7 @@ import kotlin.math.tan
 
 class MainViewModel : ViewModel() {
 
-    var state by mutableStateOf(MainScreenState())
+    var uiState by mutableStateOf(MainScreenUiState())
         private set
 
     private var result: String = ""
@@ -207,12 +206,12 @@ class MainViewModel : ViewModel() {
     }
 
     private fun checkError() {
-        if (state.mainText == ERROR_MESSAGE) clearState()
+        if (uiState.mainText == ERROR_MESSAGE) clearState()
     }
 
 
     private fun refreshState() {
-        state = state.copy(
+        uiState = uiState.copy(
             mainText = displayedFormula,
             secondText = result
         )

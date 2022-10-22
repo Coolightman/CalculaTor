@@ -3,7 +3,7 @@ package by.coolightman.calculator
 import by.coolightman.calculator.model.CalculatorAction
 import by.coolightman.calculator.model.CalculatorNumber
 import by.coolightman.calculator.model.CalculatorOperation
-import by.coolightman.calculator.viewmodel.MainViewModel
+import by.coolightman.calculator.ui.screens.MainViewModel
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -27,7 +27,7 @@ class MainViewModelTest {
     fun onActionDecimalInEmpty(){
         viewModel.onAction(CalculatorAction.Decimal)
         val expected = "0."
-        val actual = viewModel.state.mainText
+        val actual = viewModel.uiState.mainText
         Assert.assertEquals(expected, actual)
     }
 
@@ -38,7 +38,7 @@ class MainViewModelTest {
             onAction(CalculatorAction.Decimal)
         }
         val expected = "6."
-        val actual = viewModel.state.mainText
+        val actual = viewModel.uiState.mainText
         Assert.assertEquals(expected, actual)
     }
 
@@ -50,7 +50,7 @@ class MainViewModelTest {
             onAction(CalculatorAction.Decimal)
         }
         val expected = "6+0."
-        val actual = viewModel.state.mainText
+        val actual = viewModel.uiState.mainText
         Assert.assertEquals(expected, actual)
     }
 
@@ -61,7 +61,7 @@ class MainViewModelTest {
             onAction(CalculatorAction.Decimal)
         }
         val expected = "0."
-        val actual = viewModel.state.mainText
+        val actual = viewModel.uiState.mainText
         Assert.assertEquals(expected, actual)
     }
 
@@ -72,7 +72,7 @@ class MainViewModelTest {
             onAction(CalculatorAction.Equal)
         }
         val expected = ""
-        val actual = viewModel.state.mainText
+        val actual = viewModel.uiState.mainText
         Assert.assertEquals(expected, actual)
     }
 
@@ -85,8 +85,8 @@ class MainViewModelTest {
             onAction(CalculatorAction.Clear)
         }
         val expected = ""
-        val actual1 = viewModel.state.mainText
-        val actual2 = viewModel.state.secondText
+        val actual1 = viewModel.uiState.mainText
+        val actual2 = viewModel.uiState.secondText
         Assert.assertEquals(expected, actual1)
         Assert.assertEquals(expected, actual2)
     }

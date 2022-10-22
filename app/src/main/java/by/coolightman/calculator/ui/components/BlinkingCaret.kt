@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.compose
+package by.coolightman.calculator.ui.components
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.infiniteRepeatable

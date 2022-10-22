@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.screen
+package by.coolightman.calculator.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -7,16 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import by.coolightman.calculator.ui.compose.BottomKeyboard
-import by.coolightman.calculator.ui.compose.Keyboard
-import by.coolightman.calculator.ui.compose.MainRow
-import by.coolightman.calculator.ui.compose.SecondRaw
+import by.coolightman.calculator.model.CalculatorAction
+import by.coolightman.calculator.ui.components.BottomKeyboard
+import by.coolightman.calculator.ui.components.Keyboard
+import by.coolightman.calculator.ui.components.MainRow
+import by.coolightman.calculator.ui.components.SecondRaw
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScreen(
-    state: by.coolightman.calculator.model.MainScreenState,
-    onAction: (by.coolightman.calculator.model.CalculatorAction) -> Unit
+    state: MainScreenUiState,
+    onAction: (CalculatorAction) -> Unit
 ) {
     val sheetState = rememberBottomSheetState(
         initialValue = BottomSheetValue.Collapsed
