@@ -27,7 +27,7 @@ import kotlin.math.tan
 
 class CalculatorViewModel : ViewModel() {
 
-    var uiState by mutableStateOf(CalculatorScreenUiState())
+    var uiState by mutableStateOf(CalculatorUiState())
         private set
 
     private var result: String = ""
@@ -56,6 +56,12 @@ class CalculatorViewModel : ViewModel() {
         }
         calculateIfNeed(action)
         refreshState()
+    }
+
+    fun switchTheme() {
+        viewModelScope.launch {
+
+        }
     }
 
     private fun performAddOperation(action: CalculatorAddOperation) {

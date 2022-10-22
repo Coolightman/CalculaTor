@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CalculaTor</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="history">History</string>
 </resources>
