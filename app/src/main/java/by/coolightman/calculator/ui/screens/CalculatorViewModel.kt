@@ -25,9 +25,9 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 import kotlin.math.tan
 
-class MainViewModel : ViewModel() {
+class CalculatorViewModel : ViewModel() {
 
-    var uiState by mutableStateOf(MainScreenUiState())
+    var uiState by mutableStateOf(CalculatorScreenUiState())
         private set
 
     private var result: String = ""

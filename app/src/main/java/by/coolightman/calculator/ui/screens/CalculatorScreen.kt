@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import by.coolightman.calculator.model.CalculatorAction
+import androidx.navigation.NavHostController
 import by.coolightman.calculator.ui.components.BottomKeyboard
 import by.coolightman.calculator.ui.components.Keyboard
 import by.coolightman.calculator.ui.components.MainRow
@@ -15,10 +15,12 @@ import by.coolightman.calculator.ui.components.SecondRaw
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScreen(
-    state: MainScreenUiState,
-    onAction: (CalculatorAction) -> Unit
+fun CalculatorScreen(
+    navHostController: NavHostController,
+    viewModel: CalculatorViewModel
 ) {
+    val uiState = viewModel.uiState
+
     val sheetState = rememberBottomSheetState(
         initialValue = BottomSheetValue.Collapsed
     )
@@ -34,8 +36,13 @@ fun MainScreen(
         sheetPeekHeight = 0.dp,
         sheetElevation = 0.dp,
         sheetContent = {
-            BottomKeyboard(scope = scope, sheetState = sheetState, onAction = onAction)
-        }) { contentPadding ->
+            BottomKeyboard(
+                scope = scope,
+                sheetState = sheetState,
+                onAction = { viewModel.onAction(it) }
+            )
+        }
+    ) { contentPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -43,20 +50,20 @@ fun MainScreen(
         ) {
             Spacer(modifier = Modifier.weight(1f))
             MainRow(
-                text = state.mainText,
+                text = uiState.mainText,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
             )
             Spacer(modifier = Modifier.height(12.dp))
             SecondRaw(
-                text = state.secondText,
+                text = uiState.secondText,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
             )
             Spacer(modifier = Modifier.height(24.dp))
-            Keyboard(scope = scope, sheetState = sheetState, onAction = onAction)
+            Keyboard(scope = scope, sheetState = sheetState, onAction = { viewModel.onAction(it) })
         }
     }
 }

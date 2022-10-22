@@ -3,19 +3,19 @@ package by.coolightman.calculator
 import by.coolightman.calculator.model.CalculatorAction
 import by.coolightman.calculator.model.CalculatorNumber
 import by.coolightman.calculator.model.CalculatorOperation
-import by.coolightman.calculator.ui.screens.MainViewModel
+import by.coolightman.calculator.ui.screens.CalculatorViewModel
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class MainViewModelTest {
+class CalculatorViewModelTest {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: CalculatorViewModel
 
     @Before
     fun setUp() {
-        viewModel = MainViewModel()
+        viewModel = CalculatorViewModel()
     }
 
     @After
