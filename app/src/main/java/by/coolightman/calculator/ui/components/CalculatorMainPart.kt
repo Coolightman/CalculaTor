@@ -19,6 +19,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -88,7 +89,11 @@ fun CalculatorMainPart(
                         Spacer(modifier = Modifier.width(8.dp))
                         Switch(
                             checked = themeMode,
-                            onCheckedChange = { viewModel.switchTheme() }
+                            onCheckedChange = { viewModel.switchTheme() },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = MaterialTheme.colors.primaryVariant,
+                                checkedTrackColor = MaterialTheme.colors.primaryVariant
+                            )
                         )
                     }
 
