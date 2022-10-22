@@ -33,21 +33,19 @@ fun Keyboard(
 
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.Bottom,
         modifier = modifier
             .fillMaxWidth()
-            .height(450.dp)
             .clip(RoundedCornerShape(topStart = CORNER_SHAPE.dp, topEnd = CORNER_SHAPE.dp))
             .background(MaterialTheme.colors.surface)
             .onGloballyPositioned { coordinates ->
                 keyboardHeightPx = coordinates.size.height
             }
+            .padding(12.dp, 12.dp, 12.dp, 0.dp)
     ) {
 
         Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier
-                .fillMaxHeight()
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             ButtonClear { onAction(CalculatorAction.Clear) }
             ButtonNumber(number = "7") { onAction(CalculatorNumber(7)) }
@@ -63,9 +61,8 @@ fun Keyboard(
         }
 
         Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier
-                .fillMaxHeight()
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             DivideButton { onAction(CalculatorOperation.Divide) }
             ButtonNumber(number = "8") { onAction(CalculatorNumber(8)) }
@@ -75,9 +72,8 @@ fun Keyboard(
         }
 
         Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier
-                .fillMaxHeight()
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             ButtonMultiply { onAction(CalculatorOperation.Multiply) }
             ButtonNumber(number = "9") { onAction(CalculatorNumber(9)) }
@@ -87,9 +83,8 @@ fun Keyboard(
         }
 
         Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier
-                .fillMaxHeight()
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             ButtonBackspace { onAction(CalculatorAction.Backspace) }
             ButtonMinus { onAction(CalculatorOperation.Minus) }
