@@ -33,6 +33,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,7 +41,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import by.coolightman.calculator.R
-import by.coolightman.calculator.ui.screens.CalculatorViewModel
+import by.coolightman.calculator.ui.screens.calculator.CalculatorViewModel
 import by.coolightman.calculator.ui.theme.CalculaTorTheme
 import by.coolightman.calculator.ui.theme.InactiveBackground
 import kotlinx.coroutines.CoroutineScope
@@ -106,6 +107,11 @@ fun CalculatorMainPart(
                     DropdownMenuItem(
                         onClick = {}
                     ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_round_history_24),
+                            contentDescription = "history"
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
                         Text(text = stringResource(R.string.history))
                     }
                 }

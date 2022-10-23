@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.screens
+package by.coolightman.calculator.ui.screens.calculator
 
 import by.coolightman.calculator.ui.models.ThemeMode
 

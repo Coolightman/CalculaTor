@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.screens
+package by.coolightman.calculator.ui.screens.calculator
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,10 +9,12 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import by.coolightman.calculator.data.HistoryRowRepository
 import by.coolightman.calculator.model.CalculatorAction
 import by.coolightman.calculator.model.CalculatorAddOperation
 import by.coolightman.calculator.model.CalculatorNumber
 import by.coolightman.calculator.model.CalculatorOperation
+import by.coolightman.calculator.model.HistoryRow
 import by.coolightman.calculator.ui.models.ThemeMode
 import by.coolightman.calculator.util.DECIMAL_SEPARATOR
 import by.coolightman.calculator.util.ERROR_MESSAGE
@@ -37,7 +39,8 @@ import kotlin.math.tan
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
+    private val historyRowRepository: HistoryRowRepository
 ) : ViewModel() {
 
     var uiState by mutableStateOf(CalculatorUiState())
@@ -261,9 +264,22 @@ class CalculatorViewModel @Inject constructor(
 
     private fun performEqual() {
         displayedFormula = if (result != ERROR_MESSAGE) {
+            saveHistory()
             result
         } else ""
         result = ""
+    }
+
+    private fun saveHistory() {
+        viewModelScope.launch {
+            if (displayedFormula.isNotEmpty() && result.isNotEmpty()) {
+                val row = HistoryRow(
+                    expression = displayedFormula,
+                    result = result
+                )
+                historyRowRepository.insert(row)
+            }
+        }
     }
 
     private fun performBackspace() {

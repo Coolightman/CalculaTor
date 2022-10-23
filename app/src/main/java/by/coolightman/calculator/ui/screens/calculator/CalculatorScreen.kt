@@ -1,4 +1,4 @@
-package by.coolightman.calculator.ui.screens
+package by.coolightman.calculator.ui.screens.calculator
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
