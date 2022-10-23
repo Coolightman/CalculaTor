@@ -42,6 +42,7 @@ import androidx.navigation.compose.rememberNavController
 import by.coolightman.calculator.R
 import by.coolightman.calculator.ui.screens.CalculatorViewModel
 import by.coolightman.calculator.ui.theme.CalculaTorTheme
+import by.coolightman.calculator.ui.theme.InactiveBackground
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -92,6 +93,8 @@ fun CalculatorMainPart(
                             checked = themeMode,
                             onCheckedChange = { viewModel.saveThemePreference(!themeMode) },
                             colors = SwitchDefaults.colors(
+                                uncheckedThumbColor = InactiveBackground,
+                                uncheckedTrackColor = InactiveBackground,
                                 checkedThumbColor = MaterialTheme.colors.primaryVariant,
                                 checkedTrackColor = MaterialTheme.colors.primaryVariant
                             )

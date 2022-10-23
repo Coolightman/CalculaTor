@@ -15,3 +15,5 @@ val SecondRowColor = Color(0xFF777777)
 val AppLightGray = Color(0xFFE7E7E7)
 val LightSurface = Color(0xFFDFDFDF)
 val LightGrayBorder = Color(0xFFEEEDED)
+
+val InactiveBackground = Color(0xFF9B9B9B)
