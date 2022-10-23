@@ -8,8 +8,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import by.coolightman.calculator.ui.components.PrepareUI
 import by.coolightman.calculator.ui.navigation.AppNavigationHost
-import by.coolightman.calculator.ui.theme.CalculaTorTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(uiState.themeModePreference.value)
             }
 
-            CalculaTorTheme(darkTheme = themeMode) {
+            PrepareUI(darkTheme = themeMode) {
                 AppNavigationHost(navHostController = navHostController)
             }
         }
