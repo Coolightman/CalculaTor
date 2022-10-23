@@ -38,13 +38,13 @@ fun Keyboard(
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = modifier
             .fillMaxWidth()
-            .height(450.dp)
+            .height(420.dp)
             .clip(RoundedCornerShape(topStart = CORNER_SHAPE.dp, topEnd = CORNER_SHAPE.dp))
             .background(MaterialTheme.colors.surface)
             .onGloballyPositioned { coordinates ->
                 keyboardHeightDp = derivedStateOf { coordinates.size.height.pxToDp(density) }.value
             }
-            .padding(12.dp, 12.dp, 12.dp, 6.dp)
+            .padding(12.dp, 0.dp, 12.dp, 0.dp)
     ) {
 
         Column(
@@ -67,6 +67,8 @@ fun Keyboard(
             }
         }
 
+        Spacer(modifier = Modifier.width(12.dp))
+
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -81,6 +83,8 @@ fun Keyboard(
             ButtonNumber(number = "0") { onAction(CalculatorNumber(0)) }
         }
 
+        Spacer(modifier = Modifier.width(12.dp))
+
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -94,6 +98,8 @@ fun Keyboard(
             ButtonNumber(number = "3") { onAction(CalculatorNumber(3)) }
             CustomButton(symbol = ".") { onAction(CalculatorAction.Decimal) }
         }
+
+        Spacer(modifier = Modifier.width(12.dp))
 
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,

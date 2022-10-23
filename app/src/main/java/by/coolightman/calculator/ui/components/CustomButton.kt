@@ -8,6 +8,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -42,17 +44,18 @@ fun CustomButton(
     symbolColor: Color = MaterialTheme.colors.onBackground,
     background: Color = MaterialTheme.colors.secondary,
     borderColor: Color = MaterialTheme.colors.secondaryVariant,
-    width: Dp = DEF_BUTTON_SIZE.dp,
     height: Dp = DEF_BUTTON_SIZE.dp,
     textStyle: TextStyle = MaterialTheme.typography.h4,
     offsetX: Dp = 0.dp,
     offsetY: Dp = 0.dp,
     onClick: () -> Unit
 ) {
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .size(width = width, height = height)
+            .height(height)
+            .fillMaxWidth()
             .shadow(4.dp, CircleShape)
             .background(background)
             .clickable(

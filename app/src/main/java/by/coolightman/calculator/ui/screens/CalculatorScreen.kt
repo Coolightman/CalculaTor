@@ -33,7 +33,7 @@ fun CalculatorScreen(
     var bottomKeyboardState by remember {
         mutableStateOf(false)
     }
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         delay(100)
         bottomKeyboardState = true
     }
