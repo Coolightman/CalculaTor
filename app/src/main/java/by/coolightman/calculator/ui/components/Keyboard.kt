@@ -38,6 +38,7 @@ fun Keyboard(
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = modifier
             .fillMaxWidth()
+            .height(450.dp)
             .clip(RoundedCornerShape(topStart = CORNER_SHAPE.dp, topEnd = CORNER_SHAPE.dp))
             .background(MaterialTheme.colors.surface)
             .onGloballyPositioned { coordinates ->
