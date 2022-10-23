@@ -10,7 +10,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import by.coolightman.calculator.ui.components.PrepareUI
 import by.coolightman.calculator.ui.navigation.AppNavigationHost
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

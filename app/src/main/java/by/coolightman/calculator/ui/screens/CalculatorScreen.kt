@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import by.coolightman.calculator.ui.components.BottomKeyboard
 import by.coolightman.calculator.ui.components.CalculatorMainPart
@@ -20,7 +21,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun CalculatorScreen(
     navHostController: NavHostController,
-    viewModel: CalculatorViewModel
+    viewModel: CalculatorViewModel = hiltViewModel()
 ) {
     val sheetState = rememberBottomSheetState(
         initialValue = BottomSheetValue.Collapsed

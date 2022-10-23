@@ -12,11 +12,13 @@ import by.coolightman.calculator.model.CalculatorOperation
 import by.coolightman.calculator.util.DECIMAL_SEPARATOR
 import by.coolightman.calculator.util.ERROR_MESSAGE
 import by.coolightman.calculator.util.formatResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.math.BigInteger
+import javax.inject.Inject
 import kotlin.math.cos
 import kotlin.math.log10
 import kotlin.math.log2
@@ -25,7 +27,10 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 import kotlin.math.tan
 
-class CalculatorViewModel : ViewModel() {
+@HiltViewModel
+class CalculatorViewModel @Inject constructor(
+
+) : ViewModel() {
 
     var uiState by mutableStateOf(CalculatorUiState())
         private set
