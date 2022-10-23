@@ -73,7 +73,10 @@ class CalculatorViewModel : ViewModel() {
             .filter { it != "" }
 
         if (values.size == 1) {
-            val number = displayedFormula.toDouble()
+            val countingValue = if (displayedFormula.startsWith('-')) {
+                '-' + values[0]
+            } else values[0]
+            val number = countingValue.toDouble()
             viewModelScope.launch {
                 val deferred = async(Dispatchers.Default) {
                     when (action) {
