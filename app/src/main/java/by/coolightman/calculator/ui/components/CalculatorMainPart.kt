@@ -41,10 +41,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import by.coolightman.calculator.R
+import by.coolightman.calculator.ui.models.NavRoutes
 import by.coolightman.calculator.ui.screens.calculator.CalculatorViewModel
 import by.coolightman.calculator.ui.theme.CalculaTorTheme
 import by.coolightman.calculator.ui.theme.InactiveBackground
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -105,13 +107,19 @@ fun CalculatorMainPart(
                     Divider()
 
                     DropdownMenuItem(
-                        onClick = {}
+                        onClick = {
+                            isDropMenuExpanded = false
+                            scope.launch { sheetState.collapse() }
+                            navHostController.navigate(NavRoutes.History.route) {
+                                launchSingleTop = true
+                            }
+                        }
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_round_history_24),
                             contentDescription = "history"
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
+                        Spacer(modifier = Modifier.width(12.dp))
                         Text(text = stringResource(R.string.history))
                     }
                 }
