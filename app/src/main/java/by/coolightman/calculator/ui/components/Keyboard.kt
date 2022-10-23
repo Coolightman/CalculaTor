@@ -11,11 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import by.coolightman.calculator.model.CalculatorAction
 import by.coolightman.calculator.model.CalculatorNumber
 import by.coolightman.calculator.model.CalculatorOperation
 import by.coolightman.calculator.util.CORNER_SHAPE
+import by.coolightman.calculator.util.pxToDp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -27,8 +29,9 @@ fun Keyboard(
     modifier: Modifier = Modifier,
     onAction: (CalculatorAction) -> Unit
 ) {
-    var keyboardHeightPx by remember {
-        mutableStateOf(0)
+    val density = LocalDensity.current
+    var keyboardHeightDp by remember {
+        mutableStateOf(0.dp)
     }
 
     Row(
@@ -38,14 +41,17 @@ fun Keyboard(
             .clip(RoundedCornerShape(topStart = CORNER_SHAPE.dp, topEnd = CORNER_SHAPE.dp))
             .background(MaterialTheme.colors.surface)
             .onGloballyPositioned { coordinates ->
-                keyboardHeightPx = coordinates.size.height
+                keyboardHeightDp = derivedStateOf { coordinates.size.height.pxToDp(density) }.value
             }
-            .padding(12.dp, 12.dp, 12.dp, 0.dp)
+            .padding(12.dp, 12.dp, 12.dp, 6.dp)
     ) {
 
         Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
         ) {
             ButtonClear { onAction(CalculatorAction.Clear) }
             ButtonNumber(number = "7") { onAction(CalculatorNumber(7)) }
@@ -61,8 +67,11 @@ fun Keyboard(
         }
 
         Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
         ) {
             DivideButton { onAction(CalculatorOperation.Divide) }
             ButtonNumber(number = "8") { onAction(CalculatorNumber(8)) }
@@ -72,8 +81,11 @@ fun Keyboard(
         }
 
         Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
         ) {
             ButtonMultiply { onAction(CalculatorOperation.Multiply) }
             ButtonNumber(number = "9") { onAction(CalculatorNumber(9)) }
@@ -83,13 +95,16 @@ fun Keyboard(
         }
 
         Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
         ) {
             ButtonBackspace { onAction(CalculatorAction.Backspace) }
             ButtonMinus { onAction(CalculatorOperation.Minus) }
             ButtonPlus { onAction(CalculatorOperation.Plus) }
-            ButtonEqual(keyboardHeightPx) { onAction(CalculatorAction.Equal) }
+            ButtonEqual(keyboardHeightDp) { onAction(CalculatorAction.Equal) }
         }
     }
 }

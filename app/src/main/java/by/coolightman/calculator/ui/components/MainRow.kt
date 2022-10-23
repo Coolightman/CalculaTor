@@ -1,6 +1,7 @@
 package by.coolightman.calculator.ui.components
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,7 @@ fun MainRow(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = modifier.height(64.dp)
     ) {
         var fontSize by remember {
             mutableStateOf(DEFAULT_FONT_SIZE.sp)
