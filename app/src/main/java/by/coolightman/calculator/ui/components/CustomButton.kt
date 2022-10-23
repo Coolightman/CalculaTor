@@ -276,7 +276,22 @@ fun ButtonLg(symbol: String, onClick: () -> Unit) {
         symbolColor = MaterialTheme.colors.primaryVariant,
         offsetY = (-2).dp,
         textStyle = MaterialTheme.typography.h4.copy(
-            fontSize = 20.sp
+            fontSize = 22.sp
+        )
+    ) {
+        onClick()
+    }
+    Spacer(modifier = Modifier.fillMaxHeight(0.02f))
+}
+
+@Composable
+fun ButtonPercent(onClick: () -> Unit) {
+    CustomButton(
+        symbol = "%",
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        offsetY = (-2).dp,
+        textStyle = MaterialTheme.typography.h4.copy(
+            fontSize = 26.sp
         )
     ) {
         onClick()

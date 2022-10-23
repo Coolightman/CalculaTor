@@ -129,7 +129,7 @@ fun BottomKeyboard(
                         onAction(CalculatorAddOperation.Round)
                     }
 
-                    ButtonLongTitle(symbol = "%") {
+                    ButtonPercent {
                         scope.launch { sheetState.collapse() }
                         onAction(CalculatorAddOperation.Percent)
                     }
