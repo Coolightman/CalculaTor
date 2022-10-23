@@ -90,7 +90,7 @@ fun CalculatorMainPart(
                         Spacer(modifier = Modifier.width(8.dp))
                         Switch(
                             checked = themeMode,
-                            onCheckedChange = { viewModel.switchTheme() },
+                            onCheckedChange = { viewModel.saveThemePreference(!themeMode) },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = MaterialTheme.colors.primaryVariant,
                                 checkedTrackColor = MaterialTheme.colors.primaryVariant

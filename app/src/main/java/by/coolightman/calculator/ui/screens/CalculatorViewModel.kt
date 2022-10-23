@@ -3,18 +3,26 @@ package by.coolightman.calculator.ui.screens
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import by.coolightman.calculator.model.CalculatorAction
 import by.coolightman.calculator.model.CalculatorAddOperation
 import by.coolightman.calculator.model.CalculatorNumber
 import by.coolightman.calculator.model.CalculatorOperation
+import by.coolightman.calculator.ui.models.ThemeMode
 import by.coolightman.calculator.util.DECIMAL_SEPARATOR
 import by.coolightman.calculator.util.ERROR_MESSAGE
+import by.coolightman.calculator.util.THEME_MODE_KEY
 import by.coolightman.calculator.util.formatResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.math.BigInteger
@@ -29,7 +37,7 @@ import kotlin.math.tan
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(
-
+    private val dataStore: DataStore<Preferences>
 ) : ViewModel() {
 
     var uiState by mutableStateOf(CalculatorUiState())
@@ -48,6 +56,10 @@ class CalculatorViewModel @Inject constructor(
 
     private val operationsRegex = "[-+÷×^]".toPattern()
 
+    init {
+        getThemePreference()
+    }
+
     fun onAction(action: CalculatorAction) {
         checkError()
         when (action) {
@@ -63,9 +75,25 @@ class CalculatorViewModel @Inject constructor(
         refreshState()
     }
 
-    fun switchTheme() {
+    fun saveThemePreference(value: Boolean) {
         viewModelScope.launch {
+            val dataStoreKey = booleanPreferencesKey(THEME_MODE_KEY)
+            dataStore.edit { preferences ->
+                preferences[dataStoreKey] = value
+            }
+        }
+    }
 
+    private fun getThemePreference() {
+        viewModelScope.launch {
+            val dataStoreKey = booleanPreferencesKey(THEME_MODE_KEY)
+            dataStore.data.map { preferences -> preferences[dataStoreKey] ?: true }
+                .collectLatest { pref ->
+                    uiState = uiState.copy(
+                        themeModePreference = if (pref) ThemeMode.DARK_MODE
+                        else ThemeMode.LIGHT_MODE
+                    )
+                }
         }
     }
 

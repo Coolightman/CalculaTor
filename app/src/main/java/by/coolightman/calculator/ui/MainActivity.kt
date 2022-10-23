@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import by.coolightman.calculator.ui.components.PrepareUI
 import by.coolightman.calculator.ui.navigation.AppNavigationHost
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val viewModel = viewModel<MainViewModel>()
+            val viewModel = hiltViewModel<MainViewModel>()
             val uiState = viewModel.uiState
             val navHostController = rememberNavController()
 
