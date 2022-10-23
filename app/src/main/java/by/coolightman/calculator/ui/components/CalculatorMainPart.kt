@@ -69,6 +69,7 @@ fun CalculatorMainPart(
         TopAppBar(
             title = {},
             backgroundColor = MaterialTheme.colors.background,
+            elevation = 0.dp,
             actions = {
                 IconButton(onClick = { isDropMenuExpanded = true }) {
                     Icon(
