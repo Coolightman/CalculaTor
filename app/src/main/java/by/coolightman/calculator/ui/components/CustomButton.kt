@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -145,12 +144,11 @@ fun ButtonPlus(onClick: () -> Unit) {
 
 @Composable
 fun ButtonEqual(
-    keyboardHeightPx: Int,
+    keyboardHeight: Dp,
     onClick: () -> Unit
 ) {
-    val keyboardHeightDp = LocalDensity.current.run { keyboardHeightPx.toDp() }
     val space =
-        (keyboardHeightDp.value - (DEF_BUTTON_SIZE * KEYBOARD_ROWS_NUMBER)) / KEYBOARD_SPACE_NUMBER
+        (keyboardHeight.value - (DEF_BUTTON_SIZE * KEYBOARD_ROWS_NUMBER)) / KEYBOARD_SPACE_NUMBER
     val buttonHeight = DEF_BUTTON_SIZE * 2 + space
     CustomButton(
         icon = R.drawable.ic_equal,

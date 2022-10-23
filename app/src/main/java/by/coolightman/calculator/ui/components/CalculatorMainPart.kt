@@ -111,7 +111,7 @@ fun CalculatorMainPart(
 
         Column(
             verticalArrangement = Arrangement.Bottom,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxWidth()
         ) {
             MainRow(
                 text = uiState.mainText, modifier = Modifier
