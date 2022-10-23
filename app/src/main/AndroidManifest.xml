@@ -15,7 +15,9 @@
         <activity
             android:name="by.coolightman.calculator.ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.CalculaTor">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CalculaTor"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
