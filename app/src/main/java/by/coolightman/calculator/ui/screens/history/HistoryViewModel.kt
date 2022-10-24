@@ -6,6 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import by.coolightman.calculator.data.HistoryRowRepository
+import by.coolightman.calculator.model.HistoryRow
+import by.coolightman.calculator.util.HISTORY_MAX_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +28,16 @@ class HistoryViewModel @Inject constructor(
     private fun getAllHistory() {
         viewModelScope.launch {
             historyRowRepository.getAll().collectLatest {
-                uiState = uiState.copy(list = it)
+                uiState = uiState.copy(list = it.take(HISTORY_MAX_SIZE))
+                cleanExcessHistory(it)
+            }
+        }
+    }
+
+    private suspend fun cleanExcessHistory(list: List<HistoryRow>) {
+        if (list.size > HISTORY_MAX_SIZE){
+            list.drop(HISTORY_MAX_SIZE).forEach {
+                historyRowRepository.delete(it.id)
             }
         }
     }
