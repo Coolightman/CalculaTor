@@ -13,7 +13,7 @@ interface HistoryRowDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(row: HistoryRow)
 
-    @Query("SELECT * FROM history_rows")
+    @Query("SELECT * FROM history_rows ORDER BY id DESC")
     fun getAll(): Flow<List<HistoryRow>>
 
     @Query("DELETE FROM history_rows WHERE id = :id")
