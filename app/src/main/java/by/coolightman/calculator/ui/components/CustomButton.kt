@@ -8,10 +8,10 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -55,7 +55,7 @@ fun CustomButton(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .height(height)
-            .fillMaxWidth()
+            .width(DEF_BUTTON_SIZE.dp)
             .shadow(4.dp, CircleShape)
             .background(background)
             .clickable(

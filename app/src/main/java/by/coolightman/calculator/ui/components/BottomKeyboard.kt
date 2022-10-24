@@ -74,8 +74,6 @@ fun BottomKeyboard(
                     }
                 }
 
-                Spacer(modifier = Modifier.width(12.dp))
-
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
@@ -96,8 +94,6 @@ fun BottomKeyboard(
                     }
                 }
 
-                Spacer(modifier = Modifier.width(12.dp))
-
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
@@ -117,8 +113,6 @@ fun BottomKeyboard(
                         onAction(CalculatorAddOperation.Tg)
                     }
                 }
-
-                Spacer(modifier = Modifier.width(12.dp))
 
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
