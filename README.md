@@ -4,10 +4,14 @@ Simple calculator for Dark and Light themes
 
 ## Tech Stack
 
-Kotlin, Compose, exp4j
+Kotlin, Compose, MVVM, exp4j, Hilt, Coroutine, Flow, Room, Data Store
 
 ## Download link for APK
-[Google Drive](https://drive.google.com/drive/folders/1Vhnb5mYTlG5G74mu29ugbokJf0gRrair?usp=sharing)
+[Google Drive](https://drive.google.com/drive/folders/1Vhnb5mYTlG5G74mu29ugbokJf0gRrair?usp=sharing) | [Play Market](https://play.google.com/store/apps/details?id=by.coolightman.calculator)
 
 ## App screenshots
-<img src="https://user-images.githubusercontent.com/43218153/192092694-fe71c940-00e3-462f-9847-8ce5a9e3cd44.jpg" alt="drawing" width="270"/>     <img src="https://user-images.githubusercontent.com/43218153/192145303-233d5314-1e67-4f7d-81c7-2105ce1985fd.jpg" alt="drawing" width="270"/>     <img src="https://user-images.githubusercontent.com/43218153/192092696-d3e01f5d-04f3-48cc-8194-1d3dd9e73098.jpg" alt="drawing" width="270"/>
+### Dark and light theme
+<img src="https://user-images.githubusercontent.com/43218153/197476679-ba781c8a-3c41-4822-9647-02de543e6b7c.jpg" alt="drawing" width="270"/> <img src="https://user-images.githubusercontent.com/43218153/197476690-ea6c22e2-b0d0-40b2-a68b-9ff684070076.jpg" alt="drawing" width="270"/>
+
+### Additional menu and calculation history
+<img src="https://user-images.githubusercontent.com/43218153/197476685-2e365a25-91e4-41af-8df6-d6ef0b1265c4.jpg" alt="drawing" width="270"/> <img src="https://user-images.githubusercontent.com/43218153/197476687-d766f6e5-ddbb-4f3c-a66f-55cf3d3a2ceb.jpg" alt="drawing" width="270"/>
