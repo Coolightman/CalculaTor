@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CalculaTor</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="history">История</string>
+    <string name="no_history">История пуста</string>
+</resources>

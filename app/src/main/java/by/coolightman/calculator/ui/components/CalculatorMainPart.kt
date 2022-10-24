@@ -109,9 +109,13 @@ fun CalculatorMainPart(
                     DropdownMenuItem(
                         onClick = {
                             isDropMenuExpanded = false
-                            scope.launch { sheetState.collapse() }
-                            navHostController.navigate(NavRoutes.History.route) {
-                                launchSingleTop = true
+                            scope.launch {
+                                if (sheetState.isExpanded) {
+                                    sheetState.collapse()
+                                }
+                                navHostController.navigate(NavRoutes.History.route) {
+                                    launchSingleTop = true
+                                }
                             }
                         }
                     ) {
