@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name="by.coolightman.CalculaTorApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,9 +14,11 @@
         android:theme="@style/Theme.CalculaTor"
         tools:targetApi="31">
         <activity
-            android:name="by.coolightman.calculator.MainActivity"
+            android:name="by.coolightman.calculator.ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.CalculaTor">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CalculaTor"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

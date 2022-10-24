@@ -1,6 +1,6 @@
 package by.coolightman.calculator.model
 
-sealed class CalculatorAddOperation() : CalculatorAction() {
+sealed class CalculatorAddOperation : CalculatorAction() {
     object Sin : CalculatorAddOperation()
     object Cos : CalculatorAddOperation()
     object Tg : CalculatorAddOperation()
