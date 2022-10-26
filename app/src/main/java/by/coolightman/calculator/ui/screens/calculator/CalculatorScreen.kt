@@ -23,11 +23,10 @@ fun CalculatorScreen(
     navHostController: NavHostController,
     viewModel: CalculatorViewModel = hiltViewModel()
 ) {
-    val sheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed
-    )
     val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = sheetState
+        bottomSheetState = BottomSheetState(
+            initialValue = BottomSheetValue.Collapsed
+        )
     )
     val scope = rememberCoroutineScope()
 
@@ -49,18 +48,16 @@ fun CalculatorScreen(
             CalculatorMainPart(
                 viewModel = viewModel,
                 scope = scope,
-                sheetState = sheetState,
+                sheetState = scaffoldState.bottomSheetState,
                 navHostController = navHostController
             )
         },
         sheetContent = {
-            if (bottomKeyboardState) {
-                BottomKeyboard(
-                    scope = scope,
-                    sheetState = sheetState,
-                    onAction = { viewModel.onAction(it) }
-                )
-            }
+            BottomKeyboard(
+                scope = scope,
+                sheetState = scaffoldState.bottomSheetState,
+                onAction = { viewModel.onAction(it) }
+            )
         }
     )
 }
