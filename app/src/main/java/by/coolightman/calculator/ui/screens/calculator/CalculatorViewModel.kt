@@ -202,7 +202,8 @@ class CalculatorViewModel @Inject constructor(
     }
 
     private fun calculateCos(number: Double): String {
-        return cos((Math.PI / 180) * number).toString()
+        return if (number == 90.0) "0"
+        else cos((Math.PI / 180) * number).toString()
     }
 
     private fun calculateSin(number: Double): String {
