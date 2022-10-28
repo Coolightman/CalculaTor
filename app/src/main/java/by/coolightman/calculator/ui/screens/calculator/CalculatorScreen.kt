@@ -52,8 +52,8 @@ fun CalculatorScreen(
                 scope = scope,
                 sheetState = scaffoldState.bottomSheetState,
                 navHostController = navHostController,
-                onAction = {viewModel.onAction(it)},
-                onClickTheme = {viewModel.saveThemePreference(it)}
+                onAction = { viewModel.onAction(it) },
+                onClickTheme = { viewModel.saveThemePreference(it) }
             )
         },
         sheetContent = {
