@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomSheetState
-import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -24,12 +23,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,12 +34,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import by.coolightman.calculator.R
+import by.coolightman.calculator.model.CalculatorAction
 import by.coolightman.calculator.ui.models.NavRoutes
-import by.coolightman.calculator.ui.screens.calculator.CalculatorViewModel
+import by.coolightman.calculator.ui.screens.calculator.CalculatorScreen
+import by.coolightman.calculator.ui.screens.calculator.CalculatorUiState
 import by.coolightman.calculator.ui.theme.CalculaTorTheme
 import by.coolightman.calculator.ui.theme.InactiveBackground
 import kotlinx.coroutines.CoroutineScope
@@ -51,12 +49,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CalculatorMainPart(
-    viewModel: CalculatorViewModel,
+    uiState: CalculatorUiState,
     navHostController: NavHostController,
     scope: CoroutineScope,
-    sheetState: BottomSheetState
+    sheetState: BottomSheetState,
+    onAction: (CalculatorAction) -> Unit,
+    onClickTheme: (Boolean) -> Unit
 ) {
-    val uiState = viewModel.uiState
 
     var isDropMenuExpanded by remember {
         mutableStateOf(false)
@@ -94,7 +93,7 @@ fun CalculatorMainPart(
                         Spacer(modifier = Modifier.width(8.dp))
                         Switch(
                             checked = themeMode,
-                            onCheckedChange = { viewModel.saveThemePreference(!themeMode) },
+                            onCheckedChange = { onClickTheme(!themeMode) },
                             colors = SwitchDefaults.colors(
                                 uncheckedThumbColor = InactiveBackground,
                                 uncheckedTrackColor = InactiveBackground,
@@ -132,7 +131,7 @@ fun CalculatorMainPart(
 
         Column(
             verticalArrangement = Arrangement.Bottom,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxSize()
         ) {
             MainRow(
                 text = uiState.mainText, modifier = Modifier
@@ -150,28 +149,19 @@ fun CalculatorMainPart(
             Keyboard(
                 scope = scope,
                 sheetState = sheetState,
-                onAction = { viewModel.onAction(it) }
+                onAction = { onAction(it) }
             )
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Preview(showBackground = true)
 @Composable
 private fun CalculatorMainPartPreview() {
-    val viewModel = viewModel<CalculatorViewModel>()
-    val scope = rememberCoroutineScope()
-    val sheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed
-    )
     val navController = rememberNavController()
 
     CalculaTorTheme {
-        CalculatorMainPart(
-            viewModel = viewModel,
-            scope = scope,
-            sheetState = sheetState,
+        CalculatorScreen(
             navHostController = navController
         )
     }

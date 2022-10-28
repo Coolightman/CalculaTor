@@ -15,6 +15,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -29,7 +31,7 @@ fun HistoryScreen(
     navHostController: NavHostController,
     viewModel: HistoryViewModel = hiltViewModel()
 ) {
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiState.collectAsState()
     val state = rememberLazyListState()
 
     Column(modifier = Modifier.fillMaxSize()) {

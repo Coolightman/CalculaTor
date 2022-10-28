@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +24,7 @@ fun CalculatorScreen(
     navHostController: NavHostController,
     viewModel: CalculatorViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(
             initialValue = BottomSheetValue.Collapsed
@@ -46,10 +48,12 @@ fun CalculatorScreen(
         sheetElevation = 0.dp,
         content = {
             CalculatorMainPart(
-                viewModel = viewModel,
+                uiState = uiState,
                 scope = scope,
                 sheetState = scaffoldState.bottomSheetState,
-                navHostController = navHostController
+                navHostController = navHostController,
+                onAction = {viewModel.onAction(it)},
+                onClickTheme = {viewModel.saveThemePreference(it)}
             )
         },
         sheetContent = {

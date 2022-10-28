@@ -1,8 +1,5 @@
 package by.coolightman.calculator.ui
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -11,8 +8,12 @@ import androidx.lifecycle.viewModelScope
 import by.coolightman.calculator.ui.models.ThemeMode
 import by.coolightman.calculator.util.THEME_MODE_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +22,8 @@ class MainViewModel @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) : ViewModel() {
 
-    var uiState by mutableStateOf(MainActivityState())
-        private set
+    private val _uiState = MutableStateFlow(MainActivityState())
+    val uiState: StateFlow<MainActivityState> = _uiState.asStateFlow()
 
     init {
         getThemePreference()
@@ -33,10 +34,12 @@ class MainViewModel @Inject constructor(
             val dataStoreKey = booleanPreferencesKey(THEME_MODE_KEY)
             dataStore.data.map { preferences -> preferences[dataStoreKey] ?: true }
                 .collectLatest { pref ->
-                    uiState = uiState.copy(
-                        themeModePreference = if (pref) ThemeMode.DARK_MODE
-                        else ThemeMode.LIGHT_MODE
-                    )
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            themeModePreference = if (pref) ThemeMode.DARK_MODE
+                            else ThemeMode.LIGHT_MODE
+                        )
+                    }
                 }
         }
     }

@@ -1,8 +1,5 @@
 package by.coolightman.calculator.ui.screens.calculator
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -23,8 +20,12 @@ import by.coolightman.calculator.util.formatResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.math.BigInteger
@@ -43,8 +44,8 @@ class CalculatorViewModel @Inject constructor(
     private val historyRowRepository: HistoryRowRepository
 ) : ViewModel() {
 
-    var uiState by mutableStateOf(CalculatorUiState())
-        private set
+    private val _uiState = MutableStateFlow(CalculatorUiState())
+    val uiState: StateFlow<CalculatorUiState> = _uiState.asStateFlow()
 
     private var result: String = ""
     private var displayedFormula = ""
@@ -92,10 +93,12 @@ class CalculatorViewModel @Inject constructor(
             val dataStoreKey = booleanPreferencesKey(THEME_MODE_KEY)
             dataStore.data.map { preferences -> preferences[dataStoreKey] ?: true }
                 .collectLatest { pref ->
-                    uiState = uiState.copy(
-                        themeModePreference = if (pref) ThemeMode.DARK_MODE
-                        else ThemeMode.LIGHT_MODE
-                    )
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            themeModePreference = if (pref) ThemeMode.DARK_MODE
+                            else ThemeMode.LIGHT_MODE
+                        )
+                    }
                 }
         }
     }
@@ -252,15 +255,16 @@ class CalculatorViewModel @Inject constructor(
     }
 
     private fun checkError() {
-        if (uiState.mainText == ERROR_MESSAGE) clearState()
+        if (result == ERROR_MESSAGE) clearState()
     }
 
-
     private fun refreshState() {
-        uiState = uiState.copy(
-            mainText = displayedFormula,
-            secondText = result
-        )
+        _uiState.update { currentState ->
+            currentState.copy(
+                mainText = displayedFormula,
+                secondText = result
+            )
+        }
     }
 
     private fun performEqual() {
