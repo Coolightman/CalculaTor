@@ -7,7 +7,7 @@ Simple calculator for Dark and Light themes
 Kotlin, Compose, MVVM, exp4j, Hilt, Coroutine, Flow, Room, Data Store
 
 ## Download link for APK
-[Google Drive](https://drive.google.com/drive/folders/1Vhnb5mYTlG5G74mu29ugbokJf0gRrair?usp=sharing) | [Play Market](https://play.google.com/store/apps/details?id=by.coolightman.calculator)
+[Play Market](https://play.google.com/store/apps/details?id=by.coolightman.calculator)
 
 ## App screenshots
 ### Dark and light theme
