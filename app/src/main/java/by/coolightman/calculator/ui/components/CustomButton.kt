@@ -90,56 +90,76 @@ fun CustomButton(
 }
 
 @Composable
-fun DivideButton(onClick: () -> Unit) {
+fun DivideButton(
+    height: Dp,
+    onClick: () -> Unit
+) {
     CustomButton(
         symbol = "\u00F7",
         symbolColor = MaterialTheme.colors.primaryVariant,
         offsetY = (-2).dp,
         textStyle = MaterialTheme.typography.h4.copy(
             fontSize = 42.sp
-        )
+        ),
+        height = height
     ) {
         onClick()
     }
 }
 
 @Composable
-fun ButtonClear(onClick: () -> Unit) {
+fun ButtonClear(
+    height: Dp,
+    onClick: () -> Unit
+) {
     CustomButton(
         symbol = "C",
         symbolColor = MaterialTheme.colors.primaryVariant,
         offsetX = (-1).dp,
-        offsetY = (-2).dp
+        offsetY = (-2).dp,
+        height = height
     ) {
         onClick()
     }
 }
 
 @Composable
-fun ButtonMultiply(onClick: () -> Unit) {
+fun ButtonMultiply(
+    height: Dp,
+    onClick: () -> Unit
+) {
     CustomButton(
         icon = R.drawable.ic_multiply,
         symbolColor = MaterialTheme.colors.primaryVariant,
+        height = height
     ) {
         onClick()
     }
 }
 
 @Composable
-fun ButtonMinus(onClick: () -> Unit) {
+fun ButtonMinus(
+    height: Dp,
+    onClick: () -> Unit
+) {
     CustomButton(
         icon = R.drawable.ic_minus,
-        symbolColor = MaterialTheme.colors.primaryVariant
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        height = height
     ) {
         onClick()
     }
 }
 
 @Composable
-fun ButtonPlus(onClick: () -> Unit) {
+fun ButtonPlus(
+    height: Dp,
+    onClick: () -> Unit
+) {
     CustomButton(
         icon = R.drawable.ic_plus,
-        symbolColor = MaterialTheme.colors.primaryVariant
+        symbolColor = MaterialTheme.colors.primaryVariant,
+        height = height
     ) {
         onClick()
     }
@@ -147,12 +167,13 @@ fun ButtonPlus(onClick: () -> Unit) {
 
 @Composable
 fun ButtonEqual(
+    height: Dp,
     keyboardHeight: Dp,
     onClick: () -> Unit
 ) {
     val space =
-        (keyboardHeight.value - (DEF_BUTTON_SIZE * KEYBOARD_ROWS_NUMBER)) / KEYBOARD_SPACE_NUMBER
-    val buttonHeight = DEF_BUTTON_SIZE * 2 + space
+        (keyboardHeight.value - (height.value * KEYBOARD_ROWS_NUMBER)) / KEYBOARD_SPACE_NUMBER
+    val buttonHeight = height.value * 2 + space
     CustomButton(
         icon = R.drawable.ic_equal,
         background = MaterialTheme.colors.primaryVariant,
@@ -165,32 +186,45 @@ fun ButtonEqual(
 }
 
 @Composable
-fun ButtonBackspace(onClick: () -> Unit) {
+fun ButtonBackspace(
+    height: Dp,
+    onClick: () -> Unit
+) {
     CustomButton(
         icon = R.drawable.ic_backspace,
         iconSize = 28.dp,
         symbolColor = MaterialTheme.colors.primaryVariant,
-        offsetX = (-2).dp
+        offsetX = (-2).dp,
+        height = height
     ) {
         onClick()
     }
 }
 
 @Composable
-fun ButtonNumber(number: String, onClick: () -> Unit) {
+fun ButtonNumber(
+    height: Dp,
+    number: String,
+    onClick: () -> Unit
+) {
     CustomButton(
         symbol = number,
-        offsetY = (-2).dp
+        offsetY = (-2).dp,
+        height = height
     ) {
         onClick()
     }
 }
 
 @Composable
-fun ButtonExpandBottomSheet(onClick: () -> Unit) {
+fun ButtonExpandBottomSheet(
+    height: Dp,
+    onClick: () -> Unit
+) {
     CustomButton(
         icon = R.drawable.ic_expand,
         symbolColor = MaterialTheme.colors.primaryVariant,
+        height = height
     ) {
         onClick()
     }

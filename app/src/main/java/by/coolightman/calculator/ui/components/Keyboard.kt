@@ -33,6 +33,9 @@ fun Keyboard(
     var keyboardHeightDp by remember {
         mutableStateOf(0.dp)
     }
+    val btHeight by remember {
+        derivedStateOf { (keyboardHeightDp.value * 0.8 / 5).dp }
+    }
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -54,11 +57,28 @@ fun Keyboard(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            ButtonClear { onAction(CalculatorAction.Clear) }
-            ButtonNumber(number = "7") { onAction(CalculatorNumber(7)) }
-            ButtonNumber(number = "4") { onAction(CalculatorNumber(4)) }
-            ButtonNumber(number = "1") { onAction(CalculatorNumber(1)) }
-            ButtonExpandBottomSheet {
+            ButtonClear(
+                height = btHeight,
+            ) { onAction(CalculatorAction.Clear) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "7"
+            ) { onAction(CalculatorNumber(7)) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "4"
+            ) { onAction(CalculatorNumber(4)) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "1"
+            ) { onAction(CalculatorNumber(1)) }
+
+            ButtonExpandBottomSheet(
+                height = btHeight,
+            ) {
                 scope.launch {
                     if (sheetState.isCollapsed) {
                         sheetState.expand()
@@ -74,11 +94,29 @@ fun Keyboard(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            DivideButton { onAction(CalculatorOperation.Divide) }
-            ButtonNumber(number = "8") { onAction(CalculatorNumber(8)) }
-            ButtonNumber(number = "5") { onAction(CalculatorNumber(5)) }
-            ButtonNumber(number = "2") { onAction(CalculatorNumber(2)) }
-            ButtonNumber(number = "0") { onAction(CalculatorNumber(0)) }
+            DivideButton(
+                height = btHeight,
+            ) { onAction(CalculatorOperation.Divide) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "8"
+            ) { onAction(CalculatorNumber(8)) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "5"
+            ) { onAction(CalculatorNumber(5)) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "2"
+            ) { onAction(CalculatorNumber(2)) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "0"
+            ) { onAction(CalculatorNumber(0)) }
         }
 
         Column(
@@ -88,11 +126,29 @@ fun Keyboard(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            ButtonMultiply { onAction(CalculatorOperation.Multiply) }
-            ButtonNumber(number = "9") { onAction(CalculatorNumber(9)) }
-            ButtonNumber(number = "6") { onAction(CalculatorNumber(6)) }
-            ButtonNumber(number = "3") { onAction(CalculatorNumber(3)) }
-            CustomButton(symbol = ".") { onAction(CalculatorAction.Decimal) }
+            ButtonMultiply(
+                height = btHeight,
+            ) { onAction(CalculatorOperation.Multiply) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "9"
+            ) { onAction(CalculatorNumber(9)) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "6"
+            ) { onAction(CalculatorNumber(6)) }
+
+            ButtonNumber(
+                height = btHeight,
+                number = "3"
+            ) { onAction(CalculatorNumber(3)) }
+
+            CustomButton(
+                height = btHeight,
+                symbol = "."
+            ) { onAction(CalculatorAction.Decimal) }
         }
 
         Column(
@@ -102,10 +158,22 @@ fun Keyboard(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            ButtonBackspace { onAction(CalculatorAction.Backspace) }
-            ButtonMinus { onAction(CalculatorOperation.Minus) }
-            ButtonPlus { onAction(CalculatorOperation.Plus) }
-            ButtonEqual(keyboardHeightDp) { onAction(CalculatorAction.Equal) }
+            ButtonBackspace(
+                height = btHeight,
+            ) { onAction(CalculatorAction.Backspace) }
+
+            ButtonMinus(
+                height = btHeight,
+            ) { onAction(CalculatorOperation.Minus) }
+
+            ButtonPlus(
+                height = btHeight,
+            ) { onAction(CalculatorOperation.Plus) }
+
+            ButtonEqual(
+                height = btHeight,
+                keyboardHeight = keyboardHeightDp
+            ) { onAction(CalculatorAction.Equal) }
         }
     }
 }
