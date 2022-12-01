@@ -118,39 +118,17 @@ class CalculatorViewModel @Inject constructor(
             viewModelScope.launch {
                 val deferred = async(Dispatchers.Default) {
                     when (action) {
-                        is CalculatorAddOperation.Sin -> calculateSin(
-                            number
-                        )
-                        is CalculatorAddOperation.Cos -> calculateCos(
-                            number
-                        )
-                        is CalculatorAddOperation.Tg -> calculateTg(
-                            number
-                        )
-                        is CalculatorAddOperation.Ctg -> calculateCtg(
-                            number
-                        )
-                        is CalculatorAddOperation.Sqrt -> calculateSqrt(
-                            number
-                        )
-                        is CalculatorAddOperation.Round -> calculateRound(
-                            number
-                        )
-                        is CalculatorAddOperation.Percent -> calculatePercent(
-                            number
-                        )
-                        is CalculatorAddOperation.OneDivide -> calculateOneDivide(
-                            number
-                        )
-                        is CalculatorAddOperation.Lg -> calculateLg(
-                            number
-                        )
-                        is CalculatorAddOperation.Log2 -> calculateLog2(
-                            number
-                        )
-                        is CalculatorAddOperation.Factorial -> calculateFactorial(
-                            number
-                        )
+                        is CalculatorAddOperation.Sin -> calculateSin(number)
+                        is CalculatorAddOperation.Cos -> calculateCos(number)
+                        is CalculatorAddOperation.Tg -> calculateTg(number)
+                        is CalculatorAddOperation.Ctg -> calculateCtg(number)
+                        is CalculatorAddOperation.Sqrt -> calculateSqrt(number)
+                        is CalculatorAddOperation.Round -> calculateRound(number)
+                        is CalculatorAddOperation.Percent -> calculatePercent(number)
+                        is CalculatorAddOperation.OneDivide -> calculateOneDivide(number)
+                        is CalculatorAddOperation.Lg -> calculateLg(number)
+                        is CalculatorAddOperation.Log2 -> calculateLog2(number)
+                        is CalculatorAddOperation.Factorial -> calculateFactorial(number)
                     }
                 }
                 try {
