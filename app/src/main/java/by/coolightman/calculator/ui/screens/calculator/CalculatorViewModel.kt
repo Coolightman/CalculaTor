@@ -65,7 +65,6 @@ class CalculatorViewModel @Inject constructor(
     }
 
     fun onAction(action: CalculatorAction) {
-        checkError()
         when (action) {
             is CalculatorOperation -> enterOperation(action)
             is CalculatorNumber -> enterNumber(action.number)
@@ -252,10 +251,6 @@ class CalculatorViewModel @Inject constructor(
     private fun clearState() {
         result = ""
         displayedFormula = ""
-    }
-
-    private fun checkError() {
-        if (result == ERROR_MESSAGE) clearState()
     }
 
     private fun refreshState() {
